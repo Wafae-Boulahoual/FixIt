@@ -26,4 +26,4 @@ jobs:
         run: dotnet test --no-build --configuration Release
 
       - name: run code
-        run: dotnet run --project FixIt/FixIt.csproj
+        run: dotnet run --project src/FixIT.Presentation/FixIT.Presentation.csproj
