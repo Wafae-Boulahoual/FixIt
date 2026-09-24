@@ -1,4 +1,5 @@
 <Solution>
+  <Project Path="src/FixIT.Api/FixIT.Api.csproj" Id="3b175435-6f3f-4f9a-90f3-5470e993aa37" />
   <Project Path="src/FixIT.Domain/FixIT.Domain.csproj" Id="f30a4fb6-6702-4d90-ad46-ec15f52fd6d3" />
   <Project Path="src/FixIT.Presentation/FixIT.Presentation.csproj" Id="d9ac5235-e4f1-42e2-b84f-0825508ad989" />
   <Project Path="src/FixtIT.Application/FixtIT.Application.csproj" Id="0fc3e96f-42b9-4077-8233-2b56d2597457" />
