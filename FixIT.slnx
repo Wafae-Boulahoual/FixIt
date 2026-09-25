@@ -1,6 +1,7 @@
 <Solution>
+  <Project Path="src/FixIT.Api/FixIT.Api.csproj" Id="3b175435-6f3f-4f9a-90f3-5470e993aa37" />
+  <Project Path="src/FixIT.Application/FixIT.Application.csproj" Id="976e2fce-c848-4b63-8216-9f6e8df08a2d" />
   <Project Path="src/FixIT.Domain/FixIT.Domain.csproj" Id="f30a4fb6-6702-4d90-ad46-ec15f52fd6d3" />
+  <Project Path="src/FixIT.Infrastracture/FixIT.Infrastracture.csproj" Id="395edc6a-10b2-4192-b6e7-349c7fada5ab" />
   <Project Path="src/FixIT.Presentation/FixIT.Presentation.csproj" Id="d9ac5235-e4f1-42e2-b84f-0825508ad989" />
-  <Project Path="src/FixtIT.Application/FixtIT.Application.csproj" Id="0fc3e96f-42b9-4077-8233-2b56d2597457" />
-  <Project Path="src/FixtIT.Infrastracture/FixtIT.Infrastracture.csproj" Id="0ef579d6-e566-4645-8156-432d6af980a7" />
 </Solution>
