@@ -1,6 +1,5 @@
 ﻿using FixIT.Domain.Interfaces;
 using FixIT.Infrastracture.Data;
-using FixIT.Infrastracture.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,7 +17,7 @@ namespace FixIT.Infrastracture
             services.AddDbContext<FixITDbContext>(options =>
                 options.UseSqlServer(connectionString));
 
-            services.AddScoped<IServiceRequestRepository, ServiceRequestRepository>();
+           // services.AddScoped<IServiceRequestRepository, ServiceRequestRepository>();
 
             return services;
         }

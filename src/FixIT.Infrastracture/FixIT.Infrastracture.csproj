@@ -19,4 +19,8 @@
     <ProjectReference Include="..\FixIT.Application\FixIT.Application.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Repositories\" />
+  </ItemGroup>
+
 </Project>
