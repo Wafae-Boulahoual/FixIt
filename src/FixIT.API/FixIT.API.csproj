@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\FixIT.Application\FixIT.Application.csproj" />
     <ProjectReference Include="..\FixIT.Infrastracture\FixIT.Infrastracture.csproj" />
   </ItemGroup>
 

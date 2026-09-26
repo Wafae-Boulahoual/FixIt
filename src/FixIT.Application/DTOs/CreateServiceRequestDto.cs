@@ -4,7 +4,10 @@ using System.Text;
 
 namespace FixIT.Application.DTOs
 {
-    internal class CreateServiceRequestDto
+    public class CreateServiceRequestDto // det som behövs för kunder för att skapa en ny felanmälan
     {
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public string Adress { get; set; }
     }
 }

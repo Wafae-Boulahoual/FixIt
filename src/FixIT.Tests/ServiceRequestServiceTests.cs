@@ -4,7 +4,8 @@ using System.Text;
 
 namespace FixIT.Tests
 {
-    internal class ServiceRequestServiceTests
+    public class ServiceRequestServiceTests
     {
+
     }
 }

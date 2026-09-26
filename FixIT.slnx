@@ -1,8 +1,8 @@
 <Solution>
-  <Project Path="FixIT.Tests/FixIT.Tests.csproj" Id="d7a3af33-dda5-4b90-9021-8b78636286b7" />
   <Project Path="src/FixIT.Api/FixIT.Api.csproj" Id="92a62a97-f38a-47b1-a97a-aeeac078338a" />
   <Project Path="src/FixIT.Application/FixIT.Application.csproj" Id="976e2fce-c848-4b63-8216-9f6e8df08a2d" />
   <Project Path="src/FixIT.Domain/FixIT.Domain.csproj" Id="f30a4fb6-6702-4d90-ad46-ec15f52fd6d3" />
   <Project Path="src/FixIT.Infrastracture/FixIT.Infrastracture.csproj" Id="395edc6a-10b2-4192-b6e7-349c7fada5ab" />
   <Project Path="src/FixIT.Presentation/FixIT.Presentation.csproj" Id="d9ac5235-e4f1-42e2-b84f-0825508ad989" />
+  <Project Path="src/FixIT.Tests/FixIT.Tests.csproj" Id="0130df85-9edc-4fef-8fd2-19d677915984" />
 </Solution>
