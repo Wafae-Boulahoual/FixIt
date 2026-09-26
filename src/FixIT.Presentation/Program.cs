@@ -1,7 +1,6 @@
 using FixIT.Domain.Models;
 using FixIT.Infrastracture;
 using FixIT.Infrastracture.Data;
-using Microsoft.AspNetCore.Identity;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddInfrastructure(builder.Configuration);
