@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace FixIT.API.Controllers
+namespace FixIT.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]

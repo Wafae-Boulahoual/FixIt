@@ -1,4 +1,4 @@
-namespace FixIT.API
+namespace FixIT.Api
 {
     public class WeatherForecast
     {
