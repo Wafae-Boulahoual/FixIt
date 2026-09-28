@@ -10,8 +10,4 @@
     <ProjectReference Include="..\FixIT.Domain\FixIT.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Services\" />
-  </ItemGroup>
-
 </Project>
