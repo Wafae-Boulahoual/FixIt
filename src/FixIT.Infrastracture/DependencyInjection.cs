@@ -17,7 +17,7 @@ namespace FixIT.Infrastracture
             services.AddDbContext<FixITDbContext>(options =>
                 options.UseSqlServer(connectionString));
 
-           // services.AddScoped<IServiceRequestRepository, ServiceRequestRepository>();
+            services.AddScoped<IServiceRequestRepository, ServiceRequestRepository>();
 
             return services;
         }

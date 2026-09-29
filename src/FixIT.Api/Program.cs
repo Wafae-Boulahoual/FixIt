@@ -1,6 +1,12 @@
+using FixIT.Application.Interfaces;
+using FixIT.Application.Services;
+using FixIT.Infrastructure;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddScoped<IServiceRequestService, ServiceRequestService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
