@@ -59,7 +59,11 @@ namespace FixIT.Application.Services
             ClientId = r.ClientId,
             TechnichianId = r.TechnichianId
         };
-        public Task<ReadServiceRequestDto?> GetByIdAsync(int id) => throw new NotImplementedException();
+        public async Task<ReadServiceRequestDto?> GetByIdAsync(int id)
+        {
+            var request = await _repository.GetByIdAsync(id);
+            return request is null ? null : MapToDto(request);
+        }
 
     }
 }

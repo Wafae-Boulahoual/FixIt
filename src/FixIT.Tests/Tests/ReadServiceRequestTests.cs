@@ -40,5 +40,69 @@ namespace FixIT.Tests.Tests
             Assert.NotNull(result);
             Assert.Empty(result);
         }
+        [Fact]
+        public async Task GetAllAsync_ShouldReturnAllRequests()
+        {
+            // arrange
+            await SeedAsync("Läckande tak");
+            await SeedAsync("Trasig dörr");
+            await SeedAsync("Sönderfryst rör");
+
+            // act
+            var result = await _sut.GetAllAsync();
+
+            // assert
+            Assert.Equal(3, result.Count);
+            Assert.Contains(result, r => r.Title == "Läckande tak");
+            Assert.Contains(result, r => r.Title == "Trasig dörr");
+            Assert.Contains(result, r => r.Title == "Sönderfryst rör");
+        }
+
+
+
+        // ---------- GetByIdAsync ----------
+        [Fact]
+        public async Task GetByIdAsync_ShouldReturnDto_WhenRequestExists()
+        {
+            // arrange
+            var saved = new ServiceRequests
+            {
+                Title = "Läckande tak",
+                Description = "Vatten droppar i sovrummet",
+                Adress = "Storgatan 5",
+                Status = RequestStatus.InProgress,
+                CreatedAt = new DateTime(2026, 9, 1, 12, 0, 0, DateTimeKind.Utc),
+                ClientId = 7,
+                TechnichianId = 3
+            };
+            await _fakeRepository.AddAsync(saved); // Id blir 1
+
+            //Act
+            var result = await _sut.GetByIdAsync(saved.Id);
+
+            // assert – alla fält ska mappas till DTO:n
+            Assert.NotNull(result);
+            Assert.Equal(saved.Id, result!.Id);
+            Assert.Equal("Läckande tak", result.Title);
+            Assert.Equal("Vatten droppar i sovrummet", result.Description);
+            Assert.Equal("Storgatan 5", result.Adress);
+            Assert.Equal(RequestStatus.InProgress, result.Status);
+            Assert.Equal(new DateTime(2026, 9, 1, 12, 0, 0, DateTimeKind.Utc), result.CreatedAt);
+            Assert.Equal(7, result.ClientId);
+            Assert.Equal(3, result.TechnichianId);
+        }
+
+        [Fact]
+        public async Task GetByIdAsync_ShouldReturnNull_WhenRequestDoesNotExist()
+        {
+            // arrange
+            await SeedAsync("Läckande tak");
+
+            // act
+            var result = await _sut.GetByIdAsync(999);
+
+            // assert
+            Assert.Null(result);
+        }
     }
 }
