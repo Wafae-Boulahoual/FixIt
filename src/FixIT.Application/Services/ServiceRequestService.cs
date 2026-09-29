@@ -65,7 +65,11 @@ namespace FixIT.Application.Services
             return request is null ? null : MapToDto(request);
         }
 
-        public Task<List<ReadServiceRequestDto>> GetClientHistoryAsync(int clientId) => throw new NotImplementedException();
+        public async Task<List<ReadServiceRequestDto>> GetClientHistoryAsync(int clientId)
+        {
+            var requests = await _repository.GetByClientIdAsync(clientId.ToString());
+            return requests.Select(MapToDto).ToList();
+        }
 
     }
 }
