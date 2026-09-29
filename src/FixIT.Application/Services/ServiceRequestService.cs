@@ -1,13 +1,18 @@
 ﻿using FixIT.Application.DTOs;
 using FixIT.Application.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using FixIT.Domain.Interfaces;
 
 namespace FixIT.Application.Services
 {
     public class ServiceRequestService : IServiceRequestService
     {
+        private readonly IServiceRequestRepository _repository;
+
+        public ServiceRequestService(IServiceRequestRepository repository)
+        {
+            _repository = repository;
+        }
+
         public async Task<int> CreateServiceRequestAsync(CreateServiceRequestDto dto, int clientId)
         {
             if(string.IsNullOrWhiteSpace(dto.Title))
@@ -26,7 +31,11 @@ namespace FixIT.Application.Services
 
             return 1; // temporär
         }
-       
+
+
+        public Task<List<ReadServiceRequestDto>> GetAllAsync() => throw new NotImplementedException();
+
+        public Task<ReadServiceRequestDto?> GetByIdAsync(int id) => throw new NotImplementedException();
 
     }
 }

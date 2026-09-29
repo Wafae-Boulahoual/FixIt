@@ -1,7 +1,6 @@
 ﻿using FixIT.Application.DTOs;
 using FixIT.Application.Services;
-using Xunit;
-using System;
+
 
 namespace FixIT.Tests
 {
@@ -11,7 +10,7 @@ namespace FixIT.Tests
         public async Task CreateServiceRequestAsync_ShouldThrowExceptionIfTitleIsEmpty()
         {
             //arrange
-            var sut = new ServiceRequestService();
+            var sut = new ServiceRequestService(new FakeServiceRequestRepository());
             
             var dto = new CreateServiceRequestDto
             {
@@ -31,7 +30,7 @@ namespace FixIT.Tests
         public async Task CreateServiceRequestAsync_ShouldThrowExceptionIfDescriptionIsEmpty(string description)
         { 
             //arrange
-            var sut = new ServiceRequestService();
+            var sut = new ServiceRequestService(new FakeServiceRequestRepository());
             var dto = new CreateServiceRequestDto
             {
                 Title = "en titel",
@@ -50,7 +49,7 @@ namespace FixIT.Tests
         public async Task CreateServiceRequestAsync_ShouldThrowExceptionIfAdressIsEmpty(string adress)
         {
             //arrange
-            var sut = new ServiceRequestService();
+            var sut = new ServiceRequestService(new FakeServiceRequestRepository());
             var dto = new CreateServiceRequestDto
             {
                 Title = "en titel",
