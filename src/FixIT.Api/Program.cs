@@ -1,6 +1,6 @@
 using FixIT.Application.Interfaces;
 using FixIT.Application.Services;
-using FixIT.Infrastructure;
+using FixIT.Infrastracture;
 
 var builder = WebApplication.CreateBuilder(args);
 

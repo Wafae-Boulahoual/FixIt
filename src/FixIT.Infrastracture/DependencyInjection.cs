@@ -1,5 +1,6 @@
 ﻿using FixIT.Domain.Interfaces;
 using FixIT.Infrastracture.Data;
+using FixIT.Infrastracture.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

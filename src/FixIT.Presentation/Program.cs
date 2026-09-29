@@ -10,6 +10,8 @@ builder.Services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireCo
     .AddEntityFrameworkStores<FixITDbContext>();
 builder.Services.AddRazorPages();
 
+builder.Services.AddHttpClient("FixITApi", c => c.BaseAddress = new Uri("https://localhost:7113/"));
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
