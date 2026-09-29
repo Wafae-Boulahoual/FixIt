@@ -42,8 +42,23 @@ namespace FixIT.Application.Services
         }
 
 
-        public Task<List<ReadServiceRequestDto>> GetAllAsync() => throw new NotImplementedException();
+        public async Task<List<ReadServiceRequestDto>> GetAllAsync()
+        {
+            var requests = await _repository.GetAllAsync();
+            return requests.Select(MapToDto).ToList();
+        }
 
+        private static ReadServiceRequestDto MapToDto(ServiceRequests r) => new()
+        {
+            Id = r.Id,
+            Title = r.Title,
+            Description = r.Description,
+            Adress = r.Adress,
+            Status = r.Status,
+            CreatedAt = r.CreatedAt,
+            ClientId = r.ClientId,
+            TechnichianId = r.TechnichianId
+        };
         public Task<ReadServiceRequestDto?> GetByIdAsync(int id) => throw new NotImplementedException();
 
     }
