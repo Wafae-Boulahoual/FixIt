@@ -104,5 +104,35 @@ namespace FixIT.Tests.Tests
             // assert
             Assert.Null(result);
         }
+
+
+
+
+        //----------Client hitstory---------------
+        [Theory]
+        [InlineData("Läckande tak", RequestStatus.open)]
+        [InlineData("Vatten droppar i sovrummet", RequestStatus.InProgress)]
+        [InlineData("Trasig dörr", RequestStatus.Completed)]
+        public async Task GetClientHistory_ShouldReturnRightStatus(string title,RequestStatus status)
+        {
+            // arrange
+            int clientId = 1;
+            await _fakeRepository.AddAsync(new ServiceRequests
+            {
+                Title = title,
+                Description = "Testbeskrivning",
+                Adress = "Testgatan 1",
+                Status = status,
+                ClientId = clientId
+            });
+
+            // act
+            var result = await _sut.GetClientHistoryAsync(clientId);
+
+            // assert
+            var request = Assert.Single(result);
+            Assert.Equal(title, request.Title);
+            Assert.Equal(status, request.Status);
+        }
     }
 }

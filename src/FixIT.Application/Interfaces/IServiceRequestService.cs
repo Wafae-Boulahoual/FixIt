@@ -9,5 +9,7 @@ namespace FixIT.Application.Interfaces
 
         Task<List<ReadServiceRequestDto>> GetAllAsync();   // Read – alla ärenden
         Task<ReadServiceRequestDto?> GetByIdAsync(int id); // Read – ett ärende, null om det saknas
+
+        Task<List<ReadServiceRequestDto>> GetClientHistoryAsync(int clientId); // Read – en kunds alla ärenden
     }
 }
