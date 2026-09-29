@@ -1,31 +1,18 @@
 ﻿using FixIT.Application.DTOs;
 using FixIT.Application.Interfaces;
 using FixIT.Domain.Interfaces;
-<<<<<<< HEAD
-=======
 using FixIT.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
->>>>>>> main
 
 namespace FixIT.Application.Services
 {
     public class ServiceRequestService : IServiceRequestService
     {
         private readonly IServiceRequestRepository _repository;
-<<<<<<< HEAD
 
-=======
->>>>>>> main
         public ServiceRequestService(IServiceRequestRepository repository)
         {
             _repository = repository;
         }
-<<<<<<< HEAD
-
-=======
->>>>>>> main
         public async Task<int> CreateServiceRequestAsync(CreateServiceRequestDto dto, int clientId)
         {
             if(string.IsNullOrWhiteSpace(dto.Title))
