@@ -10,6 +10,8 @@ builder.Services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireCo
     .AddEntityFrameworkStores<FixITDbContext>();
 builder.Services.AddRazorPages();
 
+builder.Services.AddHttpClient("FixITApi", c => c.BaseAddress = new Uri("https://localhost:7113/"));
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -27,6 +29,16 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapStaticAssets();
+// blockerar åtkomst till registeringssidan för användare.(bara admin kan göra det)
+app.Use(async (context, next) =>
+{
+    if (context.Request.Path.StartsWithSegments("/Identity/Account/Register"))
+    {
+        context.Response.StatusCode = 404;
+        return;
+    }
+    await next();
+});
 app.MapRazorPages()
    .WithStaticAssets();
 
