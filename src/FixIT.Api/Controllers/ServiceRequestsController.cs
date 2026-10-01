@@ -27,5 +27,24 @@ namespace FixIT.Api.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        [HttpGet("client/{clientId}")]
+        public async Task<IActionResult> GetClientHistory(int clientId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

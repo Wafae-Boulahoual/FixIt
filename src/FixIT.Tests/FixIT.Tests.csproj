@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\FixIT.Api\FixIT.Api.csproj" />
     <ProjectReference Include="..\FixIT.Application\FixIT.Application.csproj" />
   </ItemGroup>
 
