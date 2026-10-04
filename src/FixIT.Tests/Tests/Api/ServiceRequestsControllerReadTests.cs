@@ -9,17 +9,15 @@ namespace FixIT.Tests.Tests.Api
 {
     public class ServiceRequestsControllerReadTests
     {
-        private readonly FakeServiceRequestRepository _fakeRepository;
+        private readonly FakeServiceRequestRepository _repository = new();
         private readonly ServiceRequestsController _sut;
 
         public ServiceRequestsControllerReadTests()
         {
-            _fakeRepository = new FakeServiceRequestRepository();
-            var service = new ServiceRequestService(_fakeRepository);
-            _sut = new ServiceRequestsController(service);
+            _sut = new ServiceRequestsController(new ServiceRequestService(_repository));
         }
 
-        private async Task<ServiceRequests> SeedAsync(string title, int clientId = 1)
+        private async Task<int> SeedAsync(string title, int clientId = 1)
         {
             var request = new ServiceRequests
             {
@@ -28,68 +26,83 @@ namespace FixIT.Tests.Tests.Api
                 Adress = "Testgatan 1",
                 ClientId = clientId
             };
-            await _fakeRepository.AddAsync(request); // Id sätts av fake-repot
-            return request;
+            await _repository.AddAsync(request);
+            return request.Id;
         }
 
         [Fact]
-        public async Task GetAll_ShouldReturnOk_WithEmptyList_WhenNoRequestsExist() 
+        public async Task GetAll_ShouldReturnEmptyList_WhenNoRequestsExist()
         {
+
+            // Act
             var result = await _sut.GetAll();
 
+            // Assert
             var ok = Assert.IsType<OkObjectResult>(result);
-            var list = Assert.IsType<List<ReadServiceRequestDto>>(ok.Value);
+            var list = Assert.IsAssignableFrom<IEnumerable<ReadServiceRequestDto>>(ok.Value);
             Assert.Empty(list);
         }
 
         [Fact]
-        public async Task GetAll_ShouldReturnOk_WithAllRequests() 
+        public async Task GetAll_ShouldReturnAllRequests()
         {
+            // Arrange
             await SeedAsync("Läckande tak");
             await SeedAsync("Trasig dörr");
 
+            // Act
             var result = await _sut.GetAll();
 
+            // Assert
             var ok = Assert.IsType<OkObjectResult>(result);
-            var list = Assert.IsType<List<ReadServiceRequestDto>>(ok.Value);
-            Assert.Equal(2, list.Count);
+            var list = Assert.IsAssignableFrom<IEnumerable<ReadServiceRequestDto>>(ok.Value);
+            Assert.Equal(2, list.Count());
         }
 
         [Fact]
-        public async Task GetById_ShouldReturnOk_WithDto_WhenRequestExists() // Testar att hämta en service request som finns
+        public async Task GetById_ShouldReturnDto_WhenRequestExists()
         {
-            var saved = await SeedAsync("Läckande tak");
+            // Arrange
+            var id = await SeedAsync("Läckande tak");
 
-            var result = await _sut.GetById(saved.Id); 
+            // Act
+            var result = await _sut.GetById(id);
 
+            // Assert
             var ok = Assert.IsType<OkObjectResult>(result);
             var dto = Assert.IsType<ReadServiceRequestDto>(ok.Value);
-            Assert.Equal(saved.Id, dto.Id);
+            Assert.Equal(id, dto.Id);
             Assert.Equal("Läckande tak", dto.Title);
         }
 
         [Fact]
-        public async Task GetById_ShouldReturnNotFound_WhenRequestDoesNotExist() // Testar att hämta en service request som inte finns
+        public async Task GetById_ShouldReturnNotFound_WhenRequestDoesNotExist()
         {
+            // Arrange
             await SeedAsync("Läckande tak");
 
+            // Act
             var result = await _sut.GetById(999);
 
+            // Assert
             Assert.IsType<NotFoundResult>(result);
         }
 
         [Fact]
-        public async Task GetClientHistory_ShouldReturnOk_WithOnlyThatClientsRequests()
+        public async Task GetClientHistory_ShouldReturnOnlyThatClientsRequests()
         {
+            // Arrange
             await SeedAsync("A", clientId: 1);
             await SeedAsync("B", clientId: 2);
 
+            // Act
             var result = await _sut.GetClientHistory(1);
 
-            var ok = Assert.IsType<OkObjectResult>(result); 
-            var list = Assert.IsType<List<ReadServiceRequestDto>>(ok.Value); 
+            // Assert
+            var ok = Assert.IsType<OkObjectResult>(result);
+            var list = Assert.IsAssignableFrom<IEnumerable<ReadServiceRequestDto>>(ok.Value);
             var item = Assert.Single(list);
-            Assert.Equal("A", item.Title); 
+            Assert.Equal("A", item.Title);
         }
     }
 }
