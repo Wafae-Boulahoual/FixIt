@@ -5,7 +5,7 @@ using FixIT.Domain.Models;
 using FixIT.Tests.Fakes;
 using Microsoft.AspNetCore.Mvc;
 
-namespace FixIT.Tests.Tests.ApiTests
+namespace FixIT.Tests.Tests.Api
 {
     public class ServiceRequestsControllerReadTests
     {
@@ -33,7 +33,7 @@ namespace FixIT.Tests.Tests.ApiTests
         }
 
         [Fact]
-        public async Task GetAll_ShouldReturn_WithEmptyList_WhenNoRequestsExist()
+        public async Task GetAll_ShouldReturnOk_WithEmptyList_WhenNoRequestsExist() 
         {
             var result = await _sut.GetAll();
 
@@ -43,7 +43,7 @@ namespace FixIT.Tests.Tests.ApiTests
         }
 
         [Fact]
-        public async Task GetAll_ShouldReturn_WithAllRequests()
+        public async Task GetAll_ShouldReturnOk_WithAllRequests() 
         {
             await SeedAsync("Läckande tak");
             await SeedAsync("Trasig dörr");
@@ -56,11 +56,11 @@ namespace FixIT.Tests.Tests.ApiTests
         }
 
         [Fact]
-        public async Task GetById_ShouldReturn_WithDto_WhenRequestExists()
+        public async Task GetById_ShouldReturnOk_WithDto_WhenRequestExists() // Testar att hämta en service request som finns
         {
             var saved = await SeedAsync("Läckande tak");
 
-            var result = await _sut.GetById(saved.Id);
+            var result = await _sut.GetById(saved.Id); 
 
             var ok = Assert.IsType<OkObjectResult>(result);
             var dto = Assert.IsType<ReadServiceRequestDto>(ok.Value);
@@ -69,7 +69,7 @@ namespace FixIT.Tests.Tests.ApiTests
         }
 
         [Fact]
-        public async Task GetById_ShouldReturnNotFound_WhenRequestDoesNotExist()
+        public async Task GetById_ShouldReturnNotFound_WhenRequestDoesNotExist() // Testar att hämta en service request som inte finns
         {
             await SeedAsync("Läckande tak");
 
@@ -86,10 +86,10 @@ namespace FixIT.Tests.Tests.ApiTests
 
             var result = await _sut.GetClientHistory(1);
 
-            var ok = Assert.IsType<OkObjectResult>(result);
-            var list = Assert.IsType<List<ReadServiceRequestDto>>(ok.Value);
+            var ok = Assert.IsType<OkObjectResult>(result); 
+            var list = Assert.IsType<List<ReadServiceRequestDto>>(ok.Value); 
             var item = Assert.Single(list);
-            Assert.Equal("A", item.Title);
+            Assert.Equal("A", item.Title); 
         }
     }
 }
