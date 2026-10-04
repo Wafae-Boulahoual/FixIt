@@ -5,7 +5,7 @@ using FixIT.Domain.Models;
 using FixIT.Tests.Fakes;
 using Microsoft.AspNetCore.Mvc;
 
-namespace FixIT.Tests.Tests
+namespace FixIT.Tests.Tests.ApiTests
 {
     public class ServiceRequestsControllerReadTests
     {
@@ -33,7 +33,7 @@ namespace FixIT.Tests.Tests
         }
 
         [Fact]
-        public async Task GetAll_ShouldReturnOk_WithEmptyList_WhenNoRequestsExist()
+        public async Task GetAll_ShouldReturn_WithEmptyList_WhenNoRequestsExist()
         {
             var result = await _sut.GetAll();
 
@@ -43,7 +43,7 @@ namespace FixIT.Tests.Tests
         }
 
         [Fact]
-        public async Task GetAll_ShouldReturnOk_WithAllRequests()
+        public async Task GetAll_ShouldReturn_WithAllRequests()
         {
             await SeedAsync("Läckande tak");
             await SeedAsync("Trasig dörr");
@@ -56,7 +56,7 @@ namespace FixIT.Tests.Tests
         }
 
         [Fact]
-        public async Task GetById_ShouldReturnOk_WithDto_WhenRequestExists()
+        public async Task GetById_ShouldReturn_WithDto_WhenRequestExists()
         {
             var saved = await SeedAsync("Läckande tak");
 
