@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace FixIT.Presentation.Pages.Admin
 {
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     public class CreateUserModel : PageModel
     {
         private readonly UserManager<AppUser> _userManager;

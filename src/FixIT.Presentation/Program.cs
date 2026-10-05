@@ -26,7 +26,7 @@ using (var scope = app.Services.CreateScope())
             await roleManager.CreateAsync(new IdentityRole(role));
     }
 
-    var adminEmail = "admin@.se";
+    var adminEmail = "admin@fixit.se";
     if (await userManager.FindByEmailAsync(adminEmail) == null)
     {
         var admin = new AppUser
