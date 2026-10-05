@@ -1,18 +1,46 @@
 using FixIT.Domain.Models;
 using FixIT.Infrastracture;
 using FixIT.Infrastracture.Data;
+using Microsoft.AspNetCore.Identity;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireConfirmedAccount = false) // "false" Slutar kräva bekräftad e-post för att logga in.
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<FixITDbContext>();
 builder.Services.AddRazorPages();
 
 builder.Services.AddHttpClient("FixITApi", c => c.BaseAddress = new Uri("https://localhost:7113/"));
 
 var app = builder.Build();
+using (var scope = app.Services.CreateScope())
+{
+    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<AppUser>>();
+
+    foreach (var role in new[] { "Admin", "Kund", "Tekniker" })
+    {
+        if (!await roleManager.RoleExistsAsync(role)) 
+            await roleManager.CreateAsync(new IdentityRole(role));
+    }
+
+    var adminEmail = "admin@.se";
+    if (await userManager.FindByEmailAsync(adminEmail) == null)
+    {
+        var admin = new AppUser
+        {
+            UserName = adminEmail,
+            Email = adminEmail,
+            Name = "Admin",
+            EmailConfirmed = true
+        };
+        var result = await userManager.CreateAsync(admin, "Admin111!");
+        if (result.Succeeded)
+            await userManager.AddToRoleAsync(admin, "Admin");
+    }
+}
 
 if (app.Environment.IsDevelopment())
 {

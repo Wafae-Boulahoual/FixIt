@@ -20,7 +20,7 @@ namespace FixIT.Presentation.Pages.Admin
         [BindProperty]
         public InputModel Input { get; set; } = new();
 
-        public string? SuccessMassage { get; set; }
+        public string? SuccessMessage { get; set; }
 
         public class InputModel
         {
@@ -74,7 +74,7 @@ namespace FixIT.Presentation.Pages.Admin
 
             await _userManager.AddToRoleAsync(user, role);
 
-            //SuccessMessage = $"{role} '{Input.Name}' skapades.";
+            SuccessMessage = $"{role} '{Input.Name}' skapades.";
             ModelState.Clear();
             Input = new InputModel();
             return Page();

@@ -1,4 +1,41 @@
 ﻿@page
 @model FixIT.Presentation.Pages.Admin.CreateUserModel
 @{
+    ViewData["Title"] = "Skapa användare";
+}
+
+<h2>Skapa användare</h2>
+
+@if (Model.SuccessMessage != null)
+{
+    <div class="alert alert-success">@Model.SuccessMessage</div>
+}
+
+<div asp-validation-summary="All" class="text-danger"></div>
+
+<form method="post">
+    <div class="mb-3">
+        <label asp-for="Input.Name">Namn</label>
+        <input asp-for="Input.Name" class="form-control" />
+        <span asp-validation-for="Input.Name" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Input.Email">E-post</label>
+        <input asp-for="Input.Email" class="form-control" />
+        <span asp-validation-for="Input.Email" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Input.Password">Lösenord</label>
+        <input asp-for="Input.Password" class="form-control" />
+        <span asp-validation-for="Input.Password" class="text-danger"></span>
+    </div>
+
+    <button type="submit" name="role" value="Kund" class="btn btn-primary">Skapa kund</button>
+    <button type="submit" name="role" value="Tekniker" class="btn btn-secondary">Skapa tekniker</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
 }
