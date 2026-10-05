@@ -42,7 +42,7 @@ namespace FixIT.Presentation.Pages.Admin
 
         public async Task<IActionResult> OnPostAsync(string role)
         {
-            // Säkerhet: admin kan bara skapa Kund eller Tekniker härifrån
+            // admin kan bara skapa Kund eller Tekniker härifrån
             if (role != "Kund" && role != "Tekniker")
             {
                 ModelState.AddModelError("", "Ogiltig roll.");
