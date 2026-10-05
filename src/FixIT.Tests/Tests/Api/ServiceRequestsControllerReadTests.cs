@@ -55,7 +55,7 @@ namespace FixIT.Tests.Tests.Api
 
             // Assert
             var ok = Assert.IsType<OkObjectResult>(result);
-            var list = Assert.IsAssignableFrom<IEnumerable<ReadServiceRequestDto>>(ok.Value);
+            var list = Assert.IsAssignableFrom<IEnumerable<ReadServiceRequestDto>>(ok.Value); 
             Assert.Equal(2, list.Count());
         }
 
@@ -69,7 +69,7 @@ namespace FixIT.Tests.Tests.Api
             var result = await _sut.GetById(id);
 
             // Assert
-            var ok = Assert.IsType<OkObjectResult>(result);
+            var ok = Assert.IsType<OkObjectResult>(result); 
             var dto = Assert.IsType<ReadServiceRequestDto>(ok.Value);
             Assert.Equal(id, dto.Id);
             Assert.Equal("Läckande tak", dto.Title);
