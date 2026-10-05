@@ -1,9 +1,11 @@
 using FixIT.Application.DTOs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace FixIT.Presentation.Pages.ServiceRequests
 {
+    [Authorize(Roles = "Kund")]
     public class CreateModel : PageModel
     {
         private readonly IHttpClientFactory _httpClientFactory;
