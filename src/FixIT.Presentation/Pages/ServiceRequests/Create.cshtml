@@ -1,0 +1,30 @@
+﻿@page
+@model FixIT.Presentation.Pages.ServiceRequests.CreateModel
+
+<h2>Skapa en ny felanmälan</h2>
+
+@if(Model.ErrorMessage != null)
+{
+    <div class = "alert alert-danger"> @Model.ErrorMessage
+    </div>
+}
+
+<form method="post">
+    <div class="mb-3">
+        <label asp-for="Dto.Title">Titel</label>
+        <input asp-for="Dto.Title" class="form-control" />    
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Dto.Description">Beskrivning</label>
+        <textarea asp-for="Dto.Description" class="form-control"></textarea>
+    </div>
+    
+    <div class="mb-3">
+        <label asp-for="Dto.Adress">Adress</label>
+        <input asp-for="Dto.Adress" class="form-control" />
+    </div>
+    
+    <button type = "submit" class="btn btn-primary">Skapa</button>
+</form>
+
