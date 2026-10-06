@@ -50,7 +50,7 @@ else
                         <td><span class="badge @statusClass">@statusText</span></td>
                         <td>@r.CreatedAt.ToLocalTime().ToString("yyyy-MM-dd HH:mm")</td>
                         <td>@r.ClientId</td>
-                        <td>@(r.TechnichianId == 0 ? "-" : r.TechnichianId.ToString())</td>
+                        <td>@(string.IsNullOrEmpty(r.TechnichianId) ? "-" : r.TechnichianId)</td>
                     </tr>
                 }
             </tbody>
