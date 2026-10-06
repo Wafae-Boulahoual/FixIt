@@ -27,7 +27,7 @@ else
                     <th>Adress</th>
                     <th>Status</th>
                     <th>Skapad</th>
-                    <th>Kund-id</th>
+                    <th>Kund</th>
                     <th>Tekniker-id</th>
                 </tr>
             </thead>
@@ -42,6 +42,8 @@ else
                         _ => ("Okänd", "bg-secondary")
                     };
 
+                    var clientName = Model.ClientNames.TryGetValue(r.ClientId, out var name) ? name : "Okänd kund";
+
                     <tr>
                         <td>@r.Id</td>
                         <td>@r.Title</td>
@@ -49,7 +51,7 @@ else
                         <td>@r.Adress</td>
                         <td><span class="badge @statusClass">@statusText</span></td>
                         <td>@r.CreatedAt.ToLocalTime().ToString("yyyy-MM-dd HH:mm")</td>
-                        <td>@r.ClientId</td>
+                        <td>@clientName</td>
                         <td>@(string.IsNullOrEmpty(r.TechnichianId) ? "-" : r.TechnichianId)</td>
                     </tr>
                 }
