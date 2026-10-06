@@ -24,6 +24,9 @@ namespace FixIT.Presentation.Pages.Admin
 
         public class InputModel
         {
+            [Required(ErrorMessage = "Roll måste väljas")]
+            public string Role { get; set; } = "";
+
             [Required(ErrorMessage = "Namn måste fyllas i")]
             public string Name { get; set; } = "";
 
@@ -40,12 +43,12 @@ namespace FixIT.Presentation.Pages.Admin
         {
         }
 
-        public async Task<IActionResult> OnPostAsync(string role)
+        public async Task<IActionResult> OnPostAsync()
         {
             // admin kan bara skapa Kund eller Tekniker härifrån
-            if (role != "Kund" && role != "Tekniker")
+            if (!string.IsNullOrEmpty(Input.Role) && Input.Role != "Kund" && Input.Role != "Tekniker")
             {
-                ModelState.AddModelError("", "Ogiltig roll.");
+                ModelState.AddModelError("Input.Role", "Ogiltig roll.");
             }
 
             if (!ModelState.IsValid)
@@ -53,10 +56,12 @@ namespace FixIT.Presentation.Pages.Admin
                 return Page();
             }
 
+            var role = Input.Role;
+
             var user = new AppUser
             {
-                UserName = Input.Email, 
-                Email = Input.Email, 
+                UserName = Input.Email,
+                Email = Input.Email,
                 Name = Input.Name,
                 EmailConfirmed = true
             };

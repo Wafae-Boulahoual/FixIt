@@ -15,6 +15,16 @@
 
 <form method="post" autocomplete="off">
     <div class="mb-3">
+        <label asp-for="Input.Role">Roll</label>
+        <select asp-for="Input.Role" class="form-select">
+            <option value="">Välj roll</option>
+            <option value="Kund">Kund</option>
+            <option value="Tekniker">Tekniker</option>
+        </select>
+        <span asp-validation-for="Input.Role" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
         <label asp-for="Input.Name">Namn</label>
         <input asp-for="Input.Name" class="form-control" />
         <span asp-validation-for="Input.Name" class="text-danger"></span>
@@ -35,8 +45,7 @@
         <span asp-validation-for="Input.Password" class="text-danger"></span>
     </div>
 
-    <button type="submit" name="role" value="Kund" class="btn btn-primary">Skapa kund</button>
-    <button type="submit" name="role" value="Tekniker" class="btn btn-secondary">Skapa tekniker</button>
+    <button type="submit" class="btn btn-primary">Skapa användare</button>
 </form>
 
 @section Scripts {
