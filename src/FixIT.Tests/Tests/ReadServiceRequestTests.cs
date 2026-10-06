@@ -22,7 +22,7 @@ namespace FixIT.Tests.Tests
                 Title = title,
                 Description = "Beskrivning för " + title,
                 Adress = adress,
-                ClientId = 1
+                ClientId = "1"
             };
             await _fakeRepository.AddAsync(request);
             return request;
@@ -70,8 +70,8 @@ namespace FixIT.Tests.Tests
                 Adress = "Storgatan 5",
                 Status = RequestStatus.InProgress,
                 CreatedAt = new DateTime(2026, 9, 1, 12, 0, 0, DateTimeKind.Utc),
-                ClientId = 7,
-                TechnichianId = 3
+                ClientId = "7",
+                TechnichianId = "3"
             };
             await _fakeRepository.AddAsync(saved); // Id blir 1
 
@@ -86,8 +86,8 @@ namespace FixIT.Tests.Tests
             Assert.Equal("Storgatan 5", result.Adress);
             Assert.Equal(RequestStatus.InProgress, result.Status);
             Assert.Equal(new DateTime(2026, 9, 1, 12, 0, 0, DateTimeKind.Utc), result.CreatedAt);
-            Assert.Equal(7, result.ClientId);
-            Assert.Equal(3, result.TechnichianId);
+            Assert.Equal("7", result.ClientId);
+            Assert.Equal("3", result.TechnichianId);
         }
          
         [Fact]
@@ -110,7 +110,7 @@ namespace FixIT.Tests.Tests
         public async Task GetClientHistory_ShouldReturnRightStatus(string title,RequestStatus status)
         {
             // arrange
-            int clientId = 1;
+            string clientId = "1";
             await _fakeRepository.AddAsync(new ServiceRequests
             {
                 Title = title,

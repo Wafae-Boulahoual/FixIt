@@ -13,14 +13,14 @@ namespace FixIT.Application.Services
         {
             _repository = repository;
         }
-        public async Task<int> CreateServiceRequestAsync(CreateServiceRequestDto dto, int clientId)
+        public async Task<int> CreateServiceRequestAsync(CreateServiceRequestDto dto, string clientId)
         {
-            if(string.IsNullOrWhiteSpace(dto.Title))
+            if (string.IsNullOrWhiteSpace(dto.Title))
             {
                 throw new ArgumentException("Titeln får inte vara tom!");
 
             }
-            if(string.IsNullOrWhiteSpace(dto.Description))
+            if (string.IsNullOrWhiteSpace(dto.Description))
             {
                 throw new ArgumentException("Beskrivningen får inte vara tom!");
             }
@@ -65,11 +65,11 @@ namespace FixIT.Application.Services
             return request is null ? null : MapToDto(request);
         }
 
-        public async Task<List<ReadServiceRequestDto>> GetClientHistoryAsync(int clientId)
+        public async Task<List<ReadServiceRequestDto>> GetClientHistoryAsync(string clientId)
         {
-            var requests = await _repository.GetByClientIdAsync(clientId.ToString());
+            var requests = await _repository.GetByClientIdAsync(clientId);
             return requests.Select(MapToDto).ToList();
         }
-
     }
+    
 }
