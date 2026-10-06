@@ -20,6 +20,7 @@ namespace FixIT.Presentation.Pages.Admin
 
         public List<ReadServiceRequestDto> Requests { get; set; } = new();
         public Dictionary<string, string> ClientNames { get; set; } = new(); // kund-id => namn
+        public Dictionary<string, string> TechnicianNames { get; set; } = new(); // tekniker-id => namn
         public string? ErrorMessage { get; set; }
 
         public async Task OnGetAsync()
@@ -42,6 +43,18 @@ namespace FixIT.Presentation.Pages.Admin
                         if (user != null)
                         {
                             ClientNames[clientId] = user.Name ?? user.Email ?? "Okänd kund";
+                        }
+                    }
+
+                    // hämta namnet för varje tekniker som är tilldelad
+                    foreach (var technicianId in Requests.Select(r => r.TechnichianId).Distinct())
+                    {
+                        if (string.IsNullOrEmpty(technicianId)) continue;
+
+                        var technician = await _userManager.FindByIdAsync(technicianId);
+                        if (technician != null)
+                        {
+                            TechnicianNames[technicianId] = technician.Name ?? technician.Email ?? "Okänd tekniker";
                         }
                     }
                 }
