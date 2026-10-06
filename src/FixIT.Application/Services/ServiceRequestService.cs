@@ -70,6 +70,17 @@ namespace FixIT.Application.Services
             var requests = await _repository.GetByClientIdAsync(clientId);
             return requests.Select(MapToDto).ToList();
         }
+
+        public async Task ClaimRequestAsync(int requestId, string technicianId)
+        {
+            var request = await _repository.GetByIdAsync(requestId);
+            if (request is null)
+            {
+                throw new KeyNotFoundException("Ärendet finns inte!");
+            }
+            request.TechnichianId = technicianId;
+            request.Status = RequestStatus.InProgress;
+            await _repository.UpdateAsync(request);
+        }
     }
-    
 }
