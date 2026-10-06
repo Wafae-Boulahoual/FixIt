@@ -23,7 +23,7 @@ namespace FixIT.Tests.Fakes
 
         public Task<List<ServiceRequests>> GetByClientIdAsync(string clientId)
         {
-            return Task.FromResult(Saved.Where(r => r.ClientId.ToString() == clientId).ToList());
+            return Task.FromResult(Saved.Where(r => r.ClientId == clientId).ToList());
         }
 
         public Task<ServiceRequests?> GetByIdAsync(int id)

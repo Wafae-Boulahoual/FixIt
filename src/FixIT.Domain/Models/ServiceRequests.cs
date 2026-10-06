@@ -10,7 +10,7 @@ namespace FixIT.Domain.Models
         public RequestStatus Status { get; set; } = RequestStatus.open;
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
-        public int ClientId { get; set; }
-        public int TechnichianId { get; set; }
+        public string ClientId { get; set; } = "";
+        public string? TechnichianId { get; set; }
     }
 }

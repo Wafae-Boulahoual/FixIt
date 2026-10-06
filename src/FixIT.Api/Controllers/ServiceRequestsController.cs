@@ -18,7 +18,7 @@ namespace FixIT.Api.Controllers
         {
             try // för att kunden kan se meddelandet om en prop är tom
             {
-                int clienId = 1; //temporär
+                string clienId = "1"; //temporär
                 var id = await _service.CreateServiceRequestAsync(dto, clienId);
                 return Created("api/servicerequests/" + id, new { id });
             }
@@ -48,7 +48,7 @@ namespace FixIT.Api.Controllers
         }
 
         [HttpGet("client/{clientId}")]
-        public async Task<IActionResult> GetClientHistory(int clientId)
+        public async Task<IActionResult> GetClientHistory(string clientId)
         {
             var requests = await _service.GetClientHistoryAsync(clientId);
             return Ok(requests);

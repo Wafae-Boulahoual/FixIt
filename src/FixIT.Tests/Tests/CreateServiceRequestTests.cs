@@ -31,7 +31,7 @@ namespace FixIT.Tests.Tests
                 Adress = " test address 123 "
 
             };
-            int clientId = 1;
+            string clientId = "1";
 
             //act och assert
             await Assert.ThrowsAsync<ArgumentException>(() => _sut.CreateServiceRequestAsync(dto, clientId));
@@ -49,7 +49,7 @@ namespace FixIT.Tests.Tests
                 Description = description,
                 Adress = " test address 123 "
             };
-            int clientId = 1;
+            string clientId = "1";
 
             //act och assert
             await Assert.ThrowsAsync<ArgumentException>(() => _sut.CreateServiceRequestAsync(dto, clientId));
@@ -68,7 +68,7 @@ namespace FixIT.Tests.Tests
                 Description = "vattentäcka som måste fixas",
                 Adress = adress
             };
-            int clientId = 1;
+            string clientId = "1";
 
             //act och assert
             await Assert.ThrowsAsync<ArgumentException>(() => _sut.CreateServiceRequestAsync(dto, clientId));
@@ -83,7 +83,7 @@ namespace FixIT.Tests.Tests
                 Description = "vattentäcka som måste fixas",
                 Adress = "test address 123"
             };
-            int clientId = 1;
+            string clientId = "1";
             //act
             var id = await _sut.CreateServiceRequestAsync(dto, clientId);
             //assert
