@@ -1,10 +1,37 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Startsida";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">FixIT</h1>
+
+    @if (User.IsInRole("Admin"))
+    {
+        <h4 class="lead">Välkommen, admin!</h4>
+        <div class="d-flex justify-content-center gap-3 mt-4">
+            <a class="btn btn-primary btn-lg" asp-page="/Admin/CreateUser">Skapa kund / tekniker</a>
+            <a class="btn btn-secondary btn-lg" asp-page="/Admin/AllRequests">Se alla felanmälningar</a>
+        </div>
+    }
+    else if (User.IsInRole("Kund"))
+    {
+        <h4 class="lead">Välkommen som Kund!</h4>
+        <div class="d-flex justify-content-center gap-3 mt-4">
+            <a class="btn btn-primary btn-lg" asp-page="/ServiceRequests/Create">Skapa felanmälan</a>
+        </div>
+    }
+    else if (User.IsInRole("Tekniker"))
+    {
+        <h4 class="lead">Välkommen som Tekniker!</h4>
+    }
+    
+    else if (User.Identity?.IsAuthenticated != true)
+    {
+        <p class="lead">Logga in för att komma vidare.</p>
+        <div class="d-flex justify-content-center gap-3 mt-4">
+            <a class="btn btn-primary btn-lg" asp-area="Identity" asp-page="/Account/Login">Logga in</a>
+        </div>
+    }
 </div>

@@ -1,0 +1,59 @@
+﻿@page
+@using FixIT.Domain.Models
+@model FixIT.Presentation.Pages.Admin.AllRequestsModel
+@{
+    ViewData["Title"] = "Alla ärenden";
+}
+
+<h2>Alla ärenden</h2>
+
+@if (Model.ErrorMessage != null)
+{
+    <div class="alert alert-danger">@Model.ErrorMessage</div>
+}
+else if (!Model.Requests.Any())
+{
+    <div class="alert alert-info">Det finns inga ärenden ännu.</div>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table table-striped align-middle">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Titel</th>
+                    <th>Beskrivning</th>
+                    <th>Adress</th>
+                    <th>Status</th>
+                    <th>Skapad</th>
+                    <th>Kund-id</th>
+                    <th>Tekniker-id</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var r in Model.Requests)
+                {
+                    var (statusText, statusClass) = r.Status switch
+                    {
+                        RequestStatus.open => ("Öppen", "bg-primary"),
+                        RequestStatus.InProgress => ("Pågår", "bg-warning text-dark"),
+                        RequestStatus.Completed => ("Slutförd", "bg-success"),
+                        _ => ("Okänd", "bg-secondary")
+                    };
+
+                    <tr>
+                        <td>@r.Id</td>
+                        <td>@r.Title</td>
+                        <td>@r.Description</td>
+                        <td>@r.Adress</td>
+                        <td><span class="badge @statusClass">@statusText</span></td>
+                        <td>@r.CreatedAt.ToLocalTime().ToString("yyyy-MM-dd HH:mm")</td>
+                        <td>@r.ClientId</td>
+                        <td>@(string.IsNullOrEmpty(r.TechnichianId) ? "-" : r.TechnichianId)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

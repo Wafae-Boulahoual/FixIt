@@ -58,8 +58,6 @@ namespace FixIT.Tests.Tests
             Assert.Contains(result, r => r.Title == "Sönderfryst rör");
         }
 
-
-
         // ---------- GetByIdAsync ----------
         [Fact]
         public async Task GetByIdAsync_ShouldReturnDto_WhenRequestExists()
@@ -91,7 +89,7 @@ namespace FixIT.Tests.Tests
             Assert.Equal("7", result.ClientId);
             Assert.Equal("3", result.TechnichianId);
         }
-
+         
         [Fact]
         public async Task GetByIdAsync_ShouldReturnNull_WhenRequestDoesNotExist()
         {
@@ -104,11 +102,7 @@ namespace FixIT.Tests.Tests
             // assert
             Assert.Null(result);
         }
-
-
-
-
-        //----------Client hitstory---------------
+        //----------Client history---------------
         [Theory]
         [InlineData("Läckande tak", RequestStatus.open)]
         [InlineData("Vatten droppar i sovrummet", RequestStatus.InProgress)]
