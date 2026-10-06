@@ -13,7 +13,7 @@
 
 <div asp-validation-summary="All" class="text-danger"></div>
 
-<form method="post">
+<form method="post" autocomplete="off">
     <div class="mb-3">
         <label asp-for="Input.Name">Namn</label>
         <input asp-for="Input.Name" class="form-control" />
@@ -22,13 +22,16 @@
 
     <div class="mb-3">
         <label asp-for="Input.Email">E-post</label>
-        <input asp-for="Input.Email" class="form-control" />
+        <input asp-for="Input.Email" class="form-control" autocomplete="off" readonly onfocus="this.removeAttribute('readonly');" />
         <span asp-validation-for="Input.Email" class="text-danger"></span>
     </div>
 
     <div class="mb-3">
         <label asp-for="Input.Password">Lösenord</label>
-        <input asp-for="Input.Password" class="form-control" />
+        <div class="input-group">
+            <input asp-for="Input.Password" class="form-control" autocomplete="new-password" readonly onfocus="this.removeAttribute('readonly');" />
+            <button type="button" id="togglePassword" class="btn btn-outline-secondary" aria-label="Visa lösenord">Visa</button>
+        </div>
         <span asp-validation-for="Input.Password" class="text-danger"></span>
     </div>
 
@@ -38,4 +41,16 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        const passwordInput = document.getElementById("Input_Password");
+        const toggleButton = document.getElementById("togglePassword");
+
+        toggleButton.addEventListener("click", function () {
+            const isHidden = passwordInput.type === "password";
+            passwordInput.type = isHidden ? "text" : "password";
+            toggleButton.textContent = isHidden ? "Dölj" : "Visa";
+            toggleButton.setAttribute("aria-label", isHidden ? "Dölj lösenord" : "Visa lösenord");
+        });
+    </script>
 }
