@@ -27,7 +27,7 @@ namespace FixIT.Infrastracture.Repositories
 
         public async Task<List<ServiceRequests>> GetByClientIdAsync(string clientId)
         {
-            return await _context.ServiceRequests.Where(r => r.ClientId.ToString() == clientId).ToListAsync();
+            return await _context.ServiceRequests.Where(r => r.ClientId == clientId).ToListAsync();
         }
 
         public async Task<ServiceRequests?> GetByIdAsync(int id)

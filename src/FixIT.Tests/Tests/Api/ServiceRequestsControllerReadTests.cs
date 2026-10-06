@@ -17,7 +17,7 @@ namespace FixIT.Tests.Tests.Api
             _sut = new ServiceRequestsController(new ServiceRequestService(_repository));
         }
 
-        private async Task<int> SeedAsync(string title, int clientId = 1)
+        private async Task<int> SeedAsync(string title, string clientId = "1")
         {
             var request = new ServiceRequests
             {
@@ -92,11 +92,11 @@ namespace FixIT.Tests.Tests.Api
         public async Task GetClientHistory_ShouldReturnOnlyThatClientsRequests()
         {
             // Arrange
-            await SeedAsync("A", clientId: 1);
-            await SeedAsync("B", clientId: 2);
+            await SeedAsync("A", clientId: "1");
+            await SeedAsync("B", clientId: "2");
 
             // Act
-            var result = await _sut.GetClientHistory(1);
+            var result = await _sut.GetClientHistory("1");
 
             // Assert
             var ok = Assert.IsType<OkObjectResult>(result);
