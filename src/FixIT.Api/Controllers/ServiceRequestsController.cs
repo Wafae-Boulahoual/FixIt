@@ -14,12 +14,11 @@ namespace FixIT.Api.Controllers
             _service = service;
         }
         [HttpPost]
-        public async Task<IActionResult> Create(CreateServiceRequestDto dto)
+        public async Task<IActionResult> Create(CreateServiceRequestDto dto, [FromQuery] string clientId)
         {
             try // för att kunden kan se meddelandet om en prop är tom
             {
-                string clienId = "1"; //temporär
-                var id = await _service.CreateServiceRequestAsync(dto, clienId);
+                var id = await _service.CreateServiceRequestAsync(dto, clientId);
                 return Created("api/servicerequests/" + id, new { id });
             }
             catch(ArgumentException ex)
