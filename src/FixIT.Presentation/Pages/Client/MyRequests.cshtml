@@ -1,4 +1,5 @@
 ﻿@page
+@using FixIT.Domain.Models
 @model FixIT.Presentation.Pages.Client.MyRequestsModel
 @{
     ViewData["Title"] = "Mina ärenden";
@@ -36,7 +37,20 @@ else
                     <td>@request.Id</td>
                     <td>@request.Title</td>
                     <td>@request.Adress</td>
-                    <td>@request.Status</td>
+                    <td>
+                        @if (request.Status == RequestStatus.open)
+                        {
+                            <span>Öppen</span>
+                        }
+                        else if (request.Status == RequestStatus.InProgress)
+                        {
+                            <span>Pågående</span>
+                        }
+                        else
+                        {
+                            <span>Avslutad</span>
+                        }
+                    </td>
                     <td>@request.CreatedAt.ToString("yyyy-MM-dd")</td>
                     <td>@(string.IsNullOrEmpty(request.TechnichianId) ? "Ej tilldelad" : "Tilldelad")</td>
                 </tr>
