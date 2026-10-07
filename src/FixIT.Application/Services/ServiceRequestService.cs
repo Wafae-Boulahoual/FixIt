@@ -78,6 +78,10 @@ namespace FixIT.Application.Services
             {
                 throw new KeyNotFoundException("Ärendet finns inte!");
             }
+            if(request.Status != RequestStatus.open)
+            {
+                throw new InvalidOperationException("Ärendet är redan taget!");
+            }
             request.TechnichianId = technicianId;
             request.Status = RequestStatus.InProgress;
             await _repository.UpdateAsync(request);
