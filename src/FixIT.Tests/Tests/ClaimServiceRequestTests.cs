@@ -6,6 +6,7 @@ using System.Text;
 using FixIT.Domain.Models;
 using FixIT.Application.Services;
 using FixIT.Domain.Interfaces;
+using Microsoft.EntityFrameworkCore.SqlServer.Query.Internal;
 
 
 namespace FixIT.Tests.Tests
@@ -40,7 +41,7 @@ namespace FixIT.Tests.Tests
             // Assert
             Assert.Equal("teknikerNummer-123", request.TechnichianId);
             Assert.Equal(RequestStatus.InProgress, request.Status);
-            _mockRepository.Verify(r => r.UpdateAsync(request), Times.Once);
+            _mockRepository.Verify(r => r.UpdateAsync(request), Times.Once); //sparas en gång
         }
 
         [Fact]
@@ -71,7 +72,7 @@ namespace FixIT.Tests.Tests
 
             // Act & Assert
             await Assert.ThrowsAsync<InvalidOperationException>(() => _sut.ClaimRequestAsync(2, "teknikerNummer-456"));
-            _mockRepository.Verify(r => r.UpdateAsync(It.IsAny<ServiceRequests>()), Times.Never);
+            _mockRepository.Verify(r => r.UpdateAsync(It.IsAny<ServiceRequests>()), Times.Never); //sparas aldrig
         }
     }
 }
