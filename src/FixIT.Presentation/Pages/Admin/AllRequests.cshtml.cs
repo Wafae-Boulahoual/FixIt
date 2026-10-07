@@ -19,8 +19,8 @@ namespace FixIT.Presentation.Pages.Admin
         }
 
         public List<ReadServiceRequestDto> Requests { get; set; } = new();
-        public Dictionary<string, string> ClientNames { get; set; } = new(); // kund-id => namn
-        public Dictionary<string, string> TechnicianNames { get; set; } = new(); // tekniker-id => namn
+        public Dictionary<string, string> ClientNames { get; set; } = new(); // kunna använda kund namn
+        public Dictionary<string, string> TechnicianNames { get; set; } = new(); // kunna använda tekniker namn
         public string? ErrorMessage { get; set; }
 
         public async Task OnGetAsync()
