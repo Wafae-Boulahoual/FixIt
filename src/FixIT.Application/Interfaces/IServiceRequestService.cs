@@ -11,6 +11,7 @@ namespace FixIT.Application.Interfaces
         Task<ReadServiceRequestDto?> GetByIdAsync(int id); // Read – ett ärende, null om det saknas
 
         Task<List<ReadServiceRequestDto>> GetClientHistoryAsync(string clientId); // Read – en kunds alla ärenden
-        Task ClaimRequestAsync(int requestId, string technicianId); // Update – en tekniker tar ett ärende
+        Task ClaimRequestAsync(int requestId, string technicianId); // Update, en tekniker tar ett ärende
+        Task CompleteRequestAsync(int requestId, string technicianId); // Update, en tekniker avslutar ett ärende
     }
 }
