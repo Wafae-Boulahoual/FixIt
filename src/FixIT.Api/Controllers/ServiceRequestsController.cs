@@ -52,5 +52,45 @@ namespace FixIT.Api.Controllers
             var requests = await _service.GetClientHistoryAsync(clientId);
             return Ok(requests);
         }
+
+        [HttpPut("{id}/claim")] //update
+        public async Task<IActionResult> ClaimRequest(int id, [FromQuery] string technicianId)
+        {
+            try
+            {
+                await _service.ClaimRequestAsync(id, technicianId); // tekniker tar ett ärende
+                return NoContent(); //inget att visa
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message); // finns inte
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(ex.Message); // redan taget
+            }
+
+        }
+        [HttpPut("{id}/complete")] //update
+        public async Task<IActionResult> CompleteRequest(int id, [FromQuery] string technicianId)
+        {
+            try
+            {
+                await _service.CompleteRequestAsync(id, technicianId); // tekniker avslutar ett ärende
+                return NoContent(); //inget att visa
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message); // finns inte
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(ex.Message); // redan avslutat
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return StatusCode(403, ex.Message); // fel tekniker
+            }
+        }
     }
 }

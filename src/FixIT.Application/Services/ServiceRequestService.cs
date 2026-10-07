@@ -78,8 +78,30 @@ namespace FixIT.Application.Services
             {
                 throw new KeyNotFoundException("Ärendet finns inte!");
             }
+            if (request.Status != RequestStatus.open)
+            {
+                throw new InvalidOperationException("Ärendet är redan taget!");
+            }
             request.TechnichianId = technicianId;
             request.Status = RequestStatus.InProgress;
+            await _repository.UpdateAsync(request);
+        }
+        public async Task CompleteRequestAsync(int requestId, string technicianId)
+        {
+            var request = await _repository.GetByIdAsync(requestId);
+            if(request is null)
+            {
+                throw new KeyNotFoundException("Ärendet finns inte!");
+            }
+            if(request.Status != RequestStatus.InProgress)
+            {
+                throw new InvalidOperationException("Ärendet är inte pågående!");
+            }
+            if (request.TechnichianId != technicianId)
+            {
+                throw new UnauthorizedAccessException("Du kan bara avsluta dina ärenden!");
+            }
+            request.Status = RequestStatus.Completed;
             await _repository.UpdateAsync(request);
         }
     }
