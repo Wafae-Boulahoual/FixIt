@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Security.Claims;
 
-namespace FixIT.Presentation.Pages.ServiceRequests
+namespace FixIT.Presentation.Pages.Client
 {
     [Authorize(Roles = "Kund")]
     public class CreateModel : PageModel
