@@ -62,5 +62,26 @@ namespace FixIT.Tests.Tests
             await Assert.ThrowsAsync<InvalidOperationException>(() => _sut.CompleteRequestAsync(2, "teknikerNummer-456"));
             _mockRepository.Verify(r => r.UpdateAsync(It.IsAny<ServiceRequests>()), Times.Never); //sparas aldrig
         }
+
+        [Fact] // en annan tekniker kan inte avsluta ett ärende som är inte sin
+        public async Task CompleteRequestAsyncShouldThrowExceptionIfWrongTechnician()
+        {
+            // Arrange
+            var request = new ServiceRequests
+            {
+                Id = 3,
+                Title = "Trasigt fönster",
+                Description = "Fönstret går inte att stänga.",
+                Adress = "storgatan 3",
+                ClientId = "KundNummer-3",
+                Status = RequestStatus.InProgress,
+                TechnichianId = "teknikerNummer-123"
+            };
+            _mockRepository.Setup(r => r.GetByIdAsync(3)).ReturnsAsync(request);
+
+            // Act & Assert
+            await Assert.ThrowsAsync<UnauthorizedAccessException>(() => _sut.CompleteRequestAsync(3, "teknikerNummer-999"));
+            _mockRepository.Verify(r => r.UpdateAsync(It.IsAny<ServiceRequests>()), Times.Never); // sparas aldrig
+        }
     }
 }

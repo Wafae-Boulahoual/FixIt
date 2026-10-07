@@ -97,6 +97,10 @@ namespace FixIT.Application.Services
             {
                 throw new InvalidOperationException("Ärendet är inte pågående!");
             }
+            if (request.TechnichianId != technicianId)
+            {
+                throw new UnauthorizedAccessException("Du kan bara avsluta dina ärenden!");
+            }
             request.Status = RequestStatus.Completed;
             await _repository.UpdateAsync(request);
         }
