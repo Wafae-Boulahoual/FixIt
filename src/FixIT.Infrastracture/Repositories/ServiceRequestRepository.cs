@@ -45,5 +45,16 @@ namespace FixIT.Infrastracture.Repositories
             _context.ServiceRequests.Update(request);
             await _context.SaveChangesAsync();
         }
+
+        public async Task DeleteAsync(int id)
+        {
+            var request = await _context.ServiceRequests.FindAsync(id);
+            if (request is null)
+            {
+                return; // finns inget att ta bort
+            }
+            _context.ServiceRequests.Remove(request);
+            await _context.SaveChangesAsync();
+        }
     }
 }

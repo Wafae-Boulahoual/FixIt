@@ -1,13 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Moq;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Moq;
 using FixIT.Domain.Models;
 using FixIT.Application.Services;
 using FixIT.Domain.Interfaces;
-using Microsoft.EntityFrameworkCore.SqlServer.Query.Internal;
-
 
 namespace FixIT.Tests.Tests
 {
@@ -19,7 +13,7 @@ namespace FixIT.Tests.Tests
         public ClaimServiceRequestTests()
         {
             _mockRepository = new Mock<IServiceRequestRepository>();
-            _sut = new ServiceRequestService(_mockRepository.Object);
+            _sut = new ServiceRequestService(_mockRepository.Object); //object är en instans av mocken som implementerar interfacet
         }
 
         [Fact]
@@ -35,7 +29,7 @@ namespace FixIT.Tests.Tests
                 ClientId = "KundNummer-1",
                 Status = RequestStatus.open
             };
-            _mockRepository.Setup(r => r.GetByIdAsync(1)).ReturnsAsync(request); //Jonas
+            _mockRepository.Setup(r => r.GetByIdAsync(1)).ReturnsAsync(request);
             // Act
             await _sut.ClaimRequestAsync(1, "teknikerNummer-123");
             // Assert
