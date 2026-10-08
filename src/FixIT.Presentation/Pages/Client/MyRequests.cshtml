@@ -54,6 +54,10 @@ else
                     <td>@(string.IsNullOrEmpty(request.TechnichianId) ? "Ej tilldelad" : "Tilldelad")</td>
                     <td>
                         <a class="btn btn-secondary btn-sm" asp-page="/Client/Details" asp-route-id="@request.Id">Visa</a>
+                        @if (request.Status == RequestStatus.open)
+                        {
+                            <a class="btn btn-primary btn-sm" asp-page="/Client/Edit" asp-route-id="@request.Id">Ändra</a>
+                        }
                     </td>
                 </tr>
             }

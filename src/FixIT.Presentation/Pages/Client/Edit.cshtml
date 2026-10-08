@@ -1,0 +1,32 @@
+﻿@page
+@model FixIT.Presentation.Pages.Client.EditModel
+@{
+    ViewData["Title"] = "Ändra ärende";
+}
+
+        <h2>Ändra ärende @Model.Id</h2>
+
+        @if (Model.ErrorMessage != null)
+        {
+            <div class="alert alert-danger">@Model.ErrorMessage</div>
+        }
+
+        <form method="post" asp-route-id="@Model.Id">
+            <div class="mb-3">
+                <label asp-for="Dto.Title">Titel</label>
+                <input asp-for="Dto.Title" class="form-control" />
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Dto.Description">Beskrivning</label>
+                <textarea asp-for="Dto.Description" class="form-control"></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Dto.Adress">Adress</label>
+                <input asp-for="Dto.Adress" class="form-control" />
+            </div>
+
+            <button type="submit" class="btn btn-primary">Spara</button>
+            <a class="btn btn-secondary" asp-page="/Client/MyRequests">Avbryt</a>
+       </form>
