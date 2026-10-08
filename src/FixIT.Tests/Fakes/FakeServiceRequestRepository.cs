@@ -40,5 +40,12 @@ namespace FixIT.Tests.Fakes
         {
             return Task.CompletedTask;
         }
+
+        public Task DeleteAsync(int id)
+        {
+            Saved.RemoveAll(r => r.Id == id);
+            return Task.CompletedTask;
+        }
     }
+
 }

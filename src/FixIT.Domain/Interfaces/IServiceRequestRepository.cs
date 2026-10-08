@@ -10,6 +10,6 @@ namespace FixIT.Domain.Interfaces
         Task AddAsync(ServiceRequests request); // skapa/spara ett nytt ärende => Create
         Task UpdateAsync(ServiceRequests request); // uppdatera ett befintligt ärende => Update
 
-        // Task DeleteAsync(int id); // ta bort ett ärende (om vi ska behöva den senare) => Delete
+        Task DeleteAsync(int id); // ta bort ett ärende eller användare => Delete
     }
 }

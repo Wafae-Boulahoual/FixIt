@@ -7,6 +7,15 @@
 
 <h2>Alla ärenden</h2>
 
+@if (Model.SuccessMessage != null)
+{
+    <div class="alert alert-success">@Model.SuccessMessage</div>
+}
+@if (Model.DeleteErrorMessage != null)
+{
+    <div class="alert alert-danger">@Model.DeleteErrorMessage</div>
+}
+
 @if (Model.ErrorMessage != null)
 {
     <div class="alert alert-danger">@Model.ErrorMessage</div>
@@ -29,6 +38,7 @@ else
                     <th>Skapad</th>
                     <th>Kund</th>
                     <th>Tekniker</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -57,9 +67,51 @@ else
                         <td>@r.CreatedAt.ToLocalTime().ToString("yyyy-MM-dd HH:mm")</td>
                         <td>@clientName</td>
                         <td>@technicianName</td>
+                        <td>
+                            <button type="button" class="btn btn-sm btn-outline-danger"
+                                    data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                    data-request-id="@r.Id" data-request-title="@r.Title">
+                                Ta bort
+                            </button>
+                        </td>
                     </tr>
                 }
             </tbody>
         </table>
     </div>
+}
+
+<!-- Bekräftelsedialog: en gemensam dialog för alla rader -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Ta bort Felanmällan</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Stäng"></button>
+            </div>
+            <div class="modal-body">
+                Är du säker på att du vill ta bort ärendet med id:<strong id="deleteModalTitle"></strong>?
+                Det går inte att ångra.
+            </div>
+            <div class="modal-footer">
+                <form method="post" asp-page-handler="Delete">
+                    <input type="hidden" name="id" id="deleteModalId" />
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Avbryt</button>
+                    <button type="submit" class="btn btn-danger">Ja, ta bort</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // fyller i dialogen med rätt ärende när admin klickar på "Ta bort"
+        document.getElementById('deleteModal').addEventListener('show.bs.modal', function (event) {
+            var button = event.relatedTarget;
+            document.getElementById('deleteModalId').value = button.getAttribute('data-request-id');
+            document.getElementById('deleteModalTitle').textContent =
+                '#' + button.getAttribute('data-request-id') + ' – ' + button.getAttribute('data-request-title');
+        });
+    </script>
 }
