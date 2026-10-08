@@ -32,7 +32,7 @@ namespace FixIT.Tests.Tests
             };
         }
 
-        [Theory] // en kund eller tekniker kan tas bort
+        [Theory]
         [InlineData("Kund")]
         [InlineData("Tekniker")]
         public async Task OnPostDeleteAsyncShouldDeleteCustomerOrTechnician(string role)
@@ -67,7 +67,7 @@ namespace FixIT.Tests.Tests
 
             // Assert
             _mockUserManager.Verify(m => m.DeleteAsync(It.IsAny<AppUser>()), Times.Never); // tas aldrig bort
-            Assert.IsType<RedirectToPageResult>(result);
+            Assert.IsType<RedirectToPageResult>(result); 
             Assert.Equal("Du kan inte ta bort ditt eget konto.", _sut.ErrorMessage);
             Assert.Null(_sut.SuccessMessage);
         }
