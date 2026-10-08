@@ -108,6 +108,36 @@ namespace FixIT.Tests.Tests
             await Assert.ThrowsAsync<UnauthorizedAccessException>(() => _sut.UpdateRequestAsync(3, dto, "KundNummer-2"));
             _mockRepository.Verify(r => r.UpdateAsync(It.IsAny<ServiceRequests>()), Times.Never); // sparas aldrig
         }
+
+
+        [Theory] // titeln får inte vara tom
+        [InlineData("")]
+        [InlineData("   ")]
+        public async Task UpdateRequestAsyncShouldThrowExceptionIfTitleIsEmpty(string title)
+        {
+            // Arrange
+            var request = new ServiceRequests
+            {
+                Id = 4,
+                Title = "Läckande kran",
+                Description = "Kranen droppar.",
+                Adress = "storgatan 4",
+                ClientId = "KundNummer-1",
+                Status = RequestStatus.open
+            };
+            _mockRepository.Setup(r => r.GetByIdAsync(4)).ReturnsAsync(request);
+
+            var dto = new UpdateServiceRequestDto
+            {
+                Title = title,
+                Description = "Ny beskrivning",
+                Adress = "Ny adress"
+            };
+
+            // Act & Assert
+            await Assert.ThrowsAsync<ArgumentException>(() => _sut.UpdateRequestAsync(4, dto, "KundNummer-1"));
+            _mockRepository.Verify(r => r.UpdateAsync(It.IsAny<ServiceRequests>()), Times.Never); 
+        }
     }
   
 }

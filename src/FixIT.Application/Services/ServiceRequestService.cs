@@ -15,20 +15,8 @@ namespace FixIT.Application.Services
         }
         public async Task<int> CreateServiceRequestAsync(CreateServiceRequestDto dto, string clientId)
         {
-            if (string.IsNullOrWhiteSpace(dto.Title))
-            {
-                throw new ArgumentException("Titeln får inte vara tom!");
-
-            }
-            if (string.IsNullOrWhiteSpace(dto.Description))
-            {
-                throw new ArgumentException("Beskrivningen får inte vara tom!");
-            }
-            if (string.IsNullOrWhiteSpace(dto.Adress))
-            {
-                throw new ArgumentException("Adressen får inte vara tom!");
-            }
-
+          
+            ValidateFields(dto.Title, dto.Description, dto.Adress);
             var request = new ServiceRequests
             {
                 Title = dto.Title,
@@ -38,7 +26,6 @@ namespace FixIT.Application.Services
             };
             await _repository.AddAsync(request);
             return request.Id;
-            //return 1; // temporär
         }
 
 
@@ -73,11 +60,7 @@ namespace FixIT.Application.Services
 
         public async Task ClaimRequestAsync(int requestId, string technicianId)
         {
-            var request = await _repository.GetByIdAsync(requestId);
-            if (request is null)
-            {
-                throw new KeyNotFoundException("Ärendet finns inte!");
-            }
+            var request = await GetRequestOrThrowAsync(requestId);
             if (request.Status != RequestStatus.open)
             {
                 throw new InvalidOperationException("Ärendet är redan taget!");
@@ -88,11 +71,7 @@ namespace FixIT.Application.Services
         }
         public async Task CompleteRequestAsync(int requestId, string technicianId)
         {
-            var request = await _repository.GetByIdAsync(requestId);
-            if (request is null)
-            {
-                throw new KeyNotFoundException("Ärendet finns inte!");
-            }
+            var request = await GetRequestOrThrowAsync(requestId);
             if (request.Status != RequestStatus.InProgress)
             {
                 throw new InvalidOperationException("Ärendet är inte pågående!");
@@ -107,20 +86,12 @@ namespace FixIT.Application.Services
 
         public async Task DeleteRequestAsync(int requestId)
         {
-            var request = await _repository.GetByIdAsync(requestId);
-            if (request is null)
-            {
-                throw new KeyNotFoundException("Ärendet finns inte!"); // om ärendet inte finns, annars anropa den repository-metoden
-            }
+            await GetRequestOrThrowAsync(requestId);
             await _repository.DeleteAsync(requestId);
         }
         public async Task UpdateRequestAsync(int requestId, UpdateServiceRequestDto dto, string clientId)
         {
-            var request = await _repository.GetByIdAsync(requestId);
-            if (request is null)
-            {
-                throw new KeyNotFoundException("Ärendet finns inte!");
-            }
+            var request = await GetRequestOrThrowAsync(requestId);
             if (request.Status != RequestStatus.open)
             {
                 throw new InvalidOperationException("Ärendet kan inte ändras!");
@@ -129,12 +100,42 @@ namespace FixIT.Application.Services
             {
                 throw new UnauthorizedAccessException("Du kan bara ändra dina egna ärenden!");
             }
-
+            
+            ValidateFields(dto.Title, dto.Description, dto.Adress);
             request.Title = dto.Title;
             request.Description = dto.Description;
             request.Adress = dto.Adress;
 
             await _repository.UpdateAsync(request);
         }
+
+
+
+        private static void ValidateFields(string title, string description, string adress) // kollar att fälten inte är tomma
+        {
+            if (string.IsNullOrWhiteSpace(title))
+            {
+                throw new ArgumentException("Titeln får inte vara tom!");
+            }
+            if (string.IsNullOrWhiteSpace(description))
+            {
+                throw new ArgumentException("Beskrivningen får inte vara tom!");
+            }
+            if (string.IsNullOrWhiteSpace(adress))
+            {
+                throw new ArgumentException("Adressen får inte vara tom!");
+            }
+        }
+
+        private async Task<ServiceRequests> GetRequestOrThrowAsync(int requestId) // hämtar ärendet eller kastar fel
+        {
+            var request = await _repository.GetByIdAsync(requestId);
+            if (request is null)
+            {
+                throw new KeyNotFoundException("Ärendet finns inte!");
+            }
+            return request;
+        }
+
     }
 }
