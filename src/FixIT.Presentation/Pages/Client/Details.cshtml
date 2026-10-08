@@ -1,0 +1,33 @@
+﻿@page
+@using FixIT.Domain.Models
+@model FixIT.Presentation.Pages.Client.DetailsModel
+@{
+    ViewData["Title"] = "Ärendedetaljer";
+}
+
+<h2>Ärende @Model.ServiceRequest.Id</h2>
+
+<p><strong>Titel:</strong> @Model.ServiceRequest.Title</p>
+<p><strong>Beskrivning:</strong> @Model.ServiceRequest.Description</p>
+<p><strong>Adress:</strong> @Model.ServiceRequest.Adress</p>
+<p><strong>Skapad:</strong> @Model.ServiceRequest.CreatedAt.ToString("yyyy-MM-dd")</p>
+
+<p>
+    <strong>Status:</strong>
+    @if (Model.ServiceRequest.Status == RequestStatus.open)
+    {
+        <span>Öppen</span>
+    }
+    else if (Model.ServiceRequest.Status == RequestStatus.InProgress)
+    {
+        <span>Pågående</span>
+    }
+    else
+    {
+        <span>Avslutad</span>
+    }
+</p>
+
+<p><strong>Tekniker:</strong> @(string.IsNullOrEmpty(Model.ServiceRequest.TechnichianId) ? "Ej tilldelad" : "Tilldelad")</p>
+
+<a class="btn btn-secondary" asp-page="/Client/MyRequests">Tillbaka</a>
