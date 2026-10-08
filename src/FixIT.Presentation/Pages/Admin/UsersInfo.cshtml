@@ -20,45 +20,49 @@
     <div class="alert alert-danger">@Model.ErrorMessage</div>
 }
 
-@foreach (var group in groups)
-{
-    <h4 class="mt-4">@group.Title (@group.Users.Count)</h4>
+<div class="row">
+    @foreach (var group in groups)
+    {
+        <div class="col-lg-6">
+            <h4 class="mt-4">@group.Title (@group.Users.Count)</h4>
 
-    @if (!group.Users.Any())
-    {
-        <div class="alert alert-info">@group.Empty</div>
-    }
-    else
-    {
-        <div class="table-responsive">
-            <table class="table table-striped align-middle">
-                <thead>
-                    <tr>
-                        <th>Namn</th>
-                        <th>E-post</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var u in group.Users)
-                    {
-                        <tr>
-                            <td>@u.Name</td>
-                            <td>@u.Email</td>
-                            <td class="text-end">
-                                <button type="button" class="btn btn-sm btn-outline-danger"
-                                        data-bs-toggle="modal" data-bs-target="#deleteModal"
-                                        data-user-id="@u.Id" data-user-name="@(u.Name ?? u.Email)">
-                                    Ta bort
-                                </button>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+            @if (!group.Users.Any())
+            {
+                <div class="alert alert-info">@group.Empty</div>
+            }
+            else
+            {
+                <div class="table-responsive">
+                    <table class="table table-striped align-middle">
+                        <thead>
+                            <tr>
+                                <th>Namn</th>
+                                <th>E-post</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var u in group.Users)
+                            {
+                                <tr>
+                                    <td>@u.Name</td>
+                                    <td class="text-break">@u.Email</td>
+                                    <td class="text-end">
+                                        <button type="button" class="btn btn-sm btn-outline-danger"
+                                                data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                                data-user-id="@u.Id" data-user-name="@(u.Name ?? u.Email)">
+                                            Ta bort
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
         </div>
     }
-}
+</div>
 
 <!-- Bekräftelsedialog: en gemensam dialog för alla rader -->
 <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
