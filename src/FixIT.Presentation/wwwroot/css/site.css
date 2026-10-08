@@ -58,3 +58,13 @@ body {
     font-size: 2.75rem;
     line-height: 1;
 }
+.nav-link {
+    font-weight: 500;
+}
+
+.nav-link:hover {
+    background: linear-gradient(135deg, #0d6efd, #6610f2);
+    color: white !important;
+    border-radius: 0.5rem;
+}
+
