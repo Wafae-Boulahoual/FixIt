@@ -2,6 +2,7 @@ using FixIT.Application.DTOs;
 using FixIT.Domain.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace FixIT.Presentation.Pages.Admin
@@ -22,6 +23,12 @@ namespace FixIT.Presentation.Pages.Admin
         public Dictionary<string, string> ClientNames { get; set; } = new(); // kunna använda kund namn
         public Dictionary<string, string> TechnicianNames { get; set; } = new(); // kunna använda tekniker namn
         public string? ErrorMessage { get; set; }
+
+        [TempData]
+        public string? SuccessMessage { get; set; } // visas efter att ett ärende tagits bort
+
+        [TempData]
+        public string? DeleteErrorMessage { get; set; } // visas om borttagningen misslyckas
 
         public async Task OnGetAsync()
         {
@@ -67,6 +74,29 @@ namespace FixIT.Presentation.Pages.Admin
             {
                 ErrorMessage = "Kunde inte nå servern. Kontrollera att API:t körs.";
             }
+        }
+
+        
+        public async Task<IActionResult> OnPostDeleteAsync(int id)
+        {
+            var client = _httpClientFactory.CreateClient("FixITApi");
+            try
+            {
+                var response = await client.DeleteAsync("api/servicerequests/" + id);
+                if (response.IsSuccessStatusCode)
+                {
+                    SuccessMessage = "Ärende #" + id + " har tagits bort.";
+                }
+                else
+                {
+                    DeleteErrorMessage = "Kunde inte ta bort ärende #" + id + ". Det kanske redan är borttaget.";
+                }
+            }
+            catch (HttpRequestException)
+            {
+                DeleteErrorMessage = "Kunde inte nå servern. Kontrollera att API:t körs.";
+            }
+            return RedirectToPage();
         }
     }
 }

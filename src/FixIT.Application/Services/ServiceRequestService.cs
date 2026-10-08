@@ -89,11 +89,11 @@ namespace FixIT.Application.Services
         public async Task CompleteRequestAsync(int requestId, string technicianId)
         {
             var request = await _repository.GetByIdAsync(requestId);
-            if(request is null)
+            if (request is null)
             {
                 throw new KeyNotFoundException("Ärendet finns inte!");
             }
-            if(request.Status != RequestStatus.InProgress)
+            if (request.Status != RequestStatus.InProgress)
             {
                 throw new InvalidOperationException("Ärendet är inte pågående!");
             }
@@ -103,6 +103,16 @@ namespace FixIT.Application.Services
             }
             request.Status = RequestStatus.Completed;
             await _repository.UpdateAsync(request);
+        }
+
+        public async Task DeleteRequestAsync(int requestId)
+        {
+            var request = await _repository.GetByIdAsync(requestId);
+            if (request is null)
+            {
+                throw new KeyNotFoundException("Ärendet finns inte!"); // om ärendet inte finns, annars anropa den repository-metoden
+            }
+            await _repository.DeleteAsync(requestId);
         }
     }
 }

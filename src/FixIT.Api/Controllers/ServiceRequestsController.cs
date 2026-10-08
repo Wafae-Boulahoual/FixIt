@@ -92,5 +92,19 @@ namespace FixIT.Api.Controllers
                 return StatusCode(403, ex.Message); // fel tekniker
             }
         }
+
+        [HttpDelete("{id}")] //delete
+        public async Task<IActionResult> Delete(int id)
+        {
+            try
+            {
+                await _service.DeleteRequestAsync(id);
+                return NoContent();
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message); 
+            }
+        }
     }
 }
