@@ -40,7 +40,7 @@ namespace FixIT.Tests.Tests.Api
 
             // Assert
             Assert.IsType<NoContentResult>(result);
-            Assert.Empty(_repository.Saved); // ser att requesten har tagits bort
+            Assert.Empty(_repository.Saved); // ser att requesten har tagits bort alltså att FakeRepository är tom
         }
 
         [Fact]
@@ -54,7 +54,7 @@ namespace FixIT.Tests.Tests.Api
 
             // Assert
             Assert.IsType<NotFoundObjectResult>(result);
-            Assert.Single(_repository.Saved); // inget har tagits bort
+            Assert.Single(_repository.Saved); // inget har tagits bort. FakeRepository har fortfarande "Läckande tak"
         }
     }
 }
