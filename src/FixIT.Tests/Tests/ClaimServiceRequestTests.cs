@@ -1,13 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Moq;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Moq;
 using FixIT.Domain.Models;
 using FixIT.Application.Services;
 using FixIT.Domain.Interfaces;
-using Microsoft.EntityFrameworkCore.SqlServer.Query.Internal;
-
 
 namespace FixIT.Tests.Tests
 {
