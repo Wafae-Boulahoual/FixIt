@@ -89,7 +89,7 @@ namespace FixIT.Api.Controllers
             }
             catch (UnauthorizedAccessException ex)
             {
-                return StatusCode(403, ex.Message); // fel tekniker
+                return BadRequest(ex.Message); // fel tekniker
             }
         }
 
@@ -104,6 +104,33 @@ namespace FixIT.Api.Controllers
             catch (KeyNotFoundException ex)
             {
                 return NotFound(ex.Message); 
+            }
+        }
+
+
+        [HttpPut("{id}")] // update
+        public async Task<IActionResult> UpdateRequest(int id, UpdateServiceRequestDto dto, [FromQuery] string clientId)
+        {
+            try
+            {
+                await _service.UpdateRequestAsync(id, dto, clientId); // kund ändrar ärendet
+                return NoContent(); // inget att visa
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message); // finns inte
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(ex.Message); // inte öppet
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message); // tomt fält
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return BadRequest(ex.Message); // fel kund
             }
         }
     }

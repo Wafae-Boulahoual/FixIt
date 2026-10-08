@@ -14,5 +14,6 @@ namespace FixIT.Application.Interfaces
         Task ClaimRequestAsync(int requestId, string technicianId);
         Task CompleteRequestAsync(int requestId, string technicianId); 
         Task DeleteRequestAsync(int requestId);
+        Task UpdateRequestAsync(int requestId, UpdateServiceRequestDto dto, string clientId); //Update, kunden kan ändra ett öppet örende
     }
 }

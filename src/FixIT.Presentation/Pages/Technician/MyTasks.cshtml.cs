@@ -22,7 +22,7 @@ namespace FixIT.Presentation.Pages.Technician
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); // inloggad tekniker
             var client = _httpClientFactory.CreateClient("FixITApi");
             var all = await client.GetFromJsonAsync<List<ReadServiceRequestDto>>("api/servicerequests") ?? new();
-            Requests = all.Where(r => r.Status == RequestStatus.InProgress && r.TechnichianId == userId).ToList();
+            Requests = all.Where(r => r.TechnichianId == userId).OrderBy(r => r.Status).ToList(); //först pågående sen avslutad (som enum)
         }
 
         public async Task<IActionResult> OnPostCompleteAsync(int id) // tekniker avslutar ärendet

@@ -24,7 +24,6 @@ else
                 <tr>
                     <th>Ärendenummer</th>
                     <th>Titel</th>
-                    <th>Beskrivning</th>
                     <th>Adress</th>
                     <th>Status</th>
                     <th>Skapad</th>
@@ -37,13 +36,12 @@ else
                     <tr>
                         <td>@request.Id</td>
                         <td>@request.Title</td>
-                        <td>@request.Description</td>
                         <td>@request.Adress</td>
                         <td><span class="badge bg-primary">Öppen</span></td>
                         <td>@request.CreatedAt.ToLocalTime().ToString("yyyy-MM-dd HH:mm")</td>
-                        <td>
-                            <form method="post" asp-page-handler="Claim" asp-route-id="@request.Id">
-                                <button type="submit" class="btn btn-primary btn-sm">Ta ärende</button>
+                        <td><a class="btn btn-secondary btn-sm" asp-page="/Technician/Details" asp-route-id="@request.Id">Visa</a>
+                        <form method="post" asp-page-handler="Claim" asp-route-id="@request.Id" class="d-inline">                                
+                            <button type="submit" class="btn btn-primary btn-sm">Ta ärende</button>
                             </form>
                         </td>
                     </tr>
