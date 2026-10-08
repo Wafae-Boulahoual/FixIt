@@ -28,5 +28,11 @@
         <span>Avslutad</span>
     }
 </p>
-
-<a class="btn btn-secondary" asp-page="/Technician/OpenRequests">Tillbaka</a>
+@if (Model.ServiceRequest.Status == RequestStatus.open)
+{
+    <a class="btn btn-secondary" asp-page="/Technician/OpenRequests">Tillbaka</a>
+}
+else
+{
+    <a class="btn btn-secondary" asp-page="/Technician/MyTasks">Tillbaka</a>
+}

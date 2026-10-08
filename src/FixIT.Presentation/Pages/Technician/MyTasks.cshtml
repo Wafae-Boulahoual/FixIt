@@ -1,4 +1,5 @@
 ﻿@page
+@using FixIT.Domain.Models
 @model FixIT.Presentation.Pages.Technician.MyTasksModel
 @{
     ViewData["Title"] = "Mina uppdrag";
@@ -13,7 +14,7 @@
 
 @if (!Model.Requests.Any())
 {
-    <div class="alert alert-info">Du har inga pågående ärenden.</div>
+    <div class="alert alert-info">Du har inga ärenden.</div>
 }
 else
 {
@@ -36,12 +37,24 @@ else
                         <td>@request.Id</td>
                         <td>@request.Title</td>
                         <td>@request.Adress</td>
-                        <td><span class="badge bg-warning text-dark">Pågående</span></td>
+                        <td> 
+                            @if (request.Status == RequestStatus.InProgress)
+                            {
+                                <span class="badge bg-warning text-dark">Pågående</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-success">Avslutad</span>
+                            }
+                        </td>
                         <td>@request.CreatedAt.ToLocalTime().ToString("yyyy-MM-dd HH:mm")</td>
                         <td><a class="btn btn-secondary btn-sm" asp-page="/Technician/Details" asp-route-id="@request.Id">Visa</a>
-                        <form method="post" asp-page-handler="Complete" asp-route-id="@request.Id" class="d-inline">                                
-                            <button type="submit" class="btn btn-success btn-sm">Avsluta</button>
+                        @if (request.Status == RequestStatus.InProgress)
+                        {
+                            <form method="post" asp-page-handler="Complete" asp-route-id="@request.Id" class="d-inline">
+                                <button type="submit" class="btn btn-success btn-sm">Avsluta</button>
                             </form>
+                        }
                         </td>
                     </tr>
                 }
