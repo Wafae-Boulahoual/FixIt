@@ -45,6 +45,17 @@
                 </div>
             </div>
         </div>
+
+        <div class="col-md-6 col-lg-4">
+            <div class="card action-card h-100 text-center shadow-sm border-0">
+                <div class="card-body p-4 d-flex flex-column">
+                    <div class="action-icon mb-3">🧑‍🔧</div>
+                    <h5 class="card-title">Alla användare</h5>
+                    <p class="card-text text-muted">Se alla kunder och tekniker och ta bort konton.</p>
+                    <a class="btn btn-secondary mt-auto stretched-link" asp-page="/Admin/UsersInfo">Visa användare</a>
+                </div>
+            </div>
+        </div>
     </div>
 }
 else if (User.IsInRole("Kund"))
@@ -62,7 +73,7 @@ else if (User.IsInRole("Kund"))
                 </div>
             </div>
         </div>
-         <div class="col-md-6 col-lg-4">
+        <div class="col-md-6 col-lg-4">
             <div class="card action-card h-100 text-center shadow-sm border-0">
                 <div class="card-body p-4 d-flex flex-column">
                     <div class="action-icon mb-3">📂</div>
