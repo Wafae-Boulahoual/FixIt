@@ -114,5 +114,27 @@ namespace FixIT.Application.Services
             }
             await _repository.DeleteAsync(requestId);
         }
+        public async Task UpdateRequestAsync(int requestId, UpdateServiceRequestDto dto, string clientId)
+        {
+            var request = await _repository.GetByIdAsync(requestId);
+            if (request is null)
+            {
+                throw new KeyNotFoundException("Ärendet finns inte!");
+            }
+            if (request.Status != RequestStatus.open)
+            {
+                throw new InvalidOperationException("Ärendet kan inte ändras!");
+            }
+            if (request.ClientId != clientId)
+            {
+                throw new UnauthorizedAccessException("Du kan bara ändra dina egna ärenden!");
+            }
+
+            request.Title = dto.Title;
+            request.Description = dto.Description;
+            request.Adress = dto.Adress;
+
+            await _repository.UpdateAsync(request);
+        }
     }
 }
