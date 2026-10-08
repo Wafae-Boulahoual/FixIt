@@ -1,0 +1,53 @@
+﻿@page
+@model FixIT.Presentation.Pages.Technician.MyTasksModel
+@{
+    ViewData["Title"] = "Mina uppdrag";
+}
+
+<h2>Mina uppdrag</h2>
+
+@if (Model.ErrorMessage != null)
+{
+    <div class="alert alert-danger">@Model.ErrorMessage</div>
+}
+
+@if (!Model.Requests.Any())
+{
+    <div class="alert alert-info">Du har inga pågående ärenden.</div>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table table-striped align-middle">
+            <thead>
+                <tr>
+                    <th>Ärendenummer</th>
+                    <th>Titel</th>
+                    <th>Beskrivning</th>
+                    <th>Adress</th>
+                    <th>Status</th>
+                    <th>Skapad</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var request in Model.Requests)
+                {
+                    <tr>
+                        <td>@request.Id</td>
+                        <td>@request.Title</td>
+                        <td>@request.Description</td>
+                        <td>@request.Adress</td>
+                        <td><span class="badge bg-warning text-dark">Pågående</span></td>
+                        <td>@request.CreatedAt.ToLocalTime().ToString("yyyy-MM-dd HH:mm")</td>
+                        <td>
+                            <form method="post" asp-page-handler="Complete" asp-route-id="@request.Id">
+                                <button type="submit" class="btn btn-success btn-sm">Avsluta</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

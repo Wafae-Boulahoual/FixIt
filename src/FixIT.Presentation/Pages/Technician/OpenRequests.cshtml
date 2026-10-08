@@ -1,0 +1,54 @@
+﻿@page
+@using FixIT.Domain.Models
+@model FixIT.Presentation.Pages.Technician.OpenRequestsModel
+@{
+    ViewData["Title"] = "Öppna ärenden";
+}
+
+<h2>Öppna ärenden</h2>
+
+@if (Model.ErrorMessage != null)
+{
+    <div class="alert alert-danger">@Model.ErrorMessage</div>
+}
+
+@if (!Model.Requests.Any())
+{
+    <div class="alert alert-info">Det finns inga lediga ärenden.</div>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table table-striped align-middle">
+            <thead>
+                <tr>
+                    <th>Ärendenummer</th>
+                    <th>Titel</th>
+                    <th>Beskrivning</th>
+                    <th>Adress</th>
+                    <th>Status</th>
+                    <th>Skapad</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var request in Model.Requests)
+                {
+                    <tr>
+                        <td>@request.Id</td>
+                        <td>@request.Title</td>
+                        <td>@request.Description</td>
+                        <td>@request.Adress</td>
+                        <td><span class="badge bg-primary">Öppen</span></td>
+                        <td>@request.CreatedAt.ToLocalTime().ToString("yyyy-MM-dd HH:mm")</td>
+                        <td>
+                            <form method="post" asp-page-handler="Claim" asp-route-id="@request.Id">
+                                <button type="submit" class="btn btn-primary btn-sm">Ta ärende</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

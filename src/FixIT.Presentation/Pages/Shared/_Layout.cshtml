@@ -24,7 +24,7 @@
                             <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
                         </li>
                       
-                       @*  @if (User.IsInRole("Kund"))
+                        @if (User.IsInRole("Kund"))
                             {
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-page="/Client/Create">Skapa felanmälan</a>
@@ -32,7 +32,16 @@
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-page="/Client/MyRequests">Mina ärenden</a>
                                 </li>
-                            } *@
+                            }
+                        @if (User.IsInRole("Tekniker"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-page="/Technician/OpenRequests">Öppna ärenden</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-page="/Technician/MyTasks">Mina uppdrag</a>
+                                </li>
+                            } 
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>
