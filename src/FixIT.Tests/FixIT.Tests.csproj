@@ -17,7 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FixIT.Api\FixIT.Api.csproj" />
-    <ProjectReference Include="..\FixIT.Application\FixIT.Application.csproj" />
+    <ProjectReference Include="..\FixIT.Presentation\FixIT.Presentation.csproj" />
   </ItemGroup>
 
   <ItemGroup>
