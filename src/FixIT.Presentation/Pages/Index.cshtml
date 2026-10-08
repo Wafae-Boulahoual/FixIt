@@ -78,7 +78,28 @@ else if (User.IsInRole("Tekniker"))
 {
     <h4 class="text-center mb-4">Välkommen som tekniker!</h4>
 
-   
+    <div class="row justify-content-center g-4">
+        <div class="col-md-6 col-lg-4">
+            <div class="card action-card h-100 text-center shadow-sm border-0">
+                <div class="card-body p-4 d-flex flex-column">
+                    <div class="action-icon mb-3">🔧</div>
+                    <h5 class="card-title">Öppna ärenden</h5>
+                    <p class="card-text text-muted">Se lediga ärenden och ta ett uppdrag.</p>
+                    <a class="btn btn-primary mt-auto stretched-link" asp-page="/Technician/OpenRequests">Visa öppna ärenden</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+            <div class="card action-card h-100 text-center shadow-sm border-0">
+                <div class="card-body p-4 d-flex flex-column">
+                    <div class="action-icon mb-3">✅</div>
+                    <h5 class="card-title">Mina uppdrag</h5>
+                    <p class="card-text text-muted">Se dina pågående ärenden och avsluta dem.</p>
+                    <a class="btn btn-secondary mt-auto stretched-link" asp-page="/Technician/MyTasks">Visa mina uppdrag</a>
+                </div>
+            </div>
+        </div>
+    </div>
 }
 else if (!isAuthenticated)
 {
