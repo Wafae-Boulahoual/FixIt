@@ -36,7 +36,8 @@ using (var scope = app.Services.CreateScope())
             Name = "Admin",
             EmailConfirmed = true
         };
-        var result = await userManager.CreateAsync(admin, "Admin111!");
+        var adminPassword = app.Configuration["AdminPassword"]; //hämtas från user secrets
+        var result = await userManager.CreateAsync(admin, adminPassword);
         if (result.Succeeded)
             await userManager.AddToRoleAsync(admin, "Admin");
     }
@@ -57,16 +58,16 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapStaticAssets();
-// blockerar åtkomst till registeringssidan för användare.(bara admin kan göra det)
-//app.Use(async (context, next) =>
-//{
-//    if (context.Request.Path.StartsWithSegments("/Identity/Account/Register"))
-//    {
-//        context.Response.StatusCode = 404;
-//        return;
-//    }
-//    await next();
-//});
+//blockerar åtkomst till registeringssidan för användare.(bara admin kan göra det)
+app.Use(async (context, next) =>
+{
+    if (context.Request.Path.StartsWithSegments("/Identity/Account/Register"))
+    {
+        context.Response.StatusCode = 404;
+        return;
+    }
+    await next();
+});
 app.MapRazorPages()
    .WithStaticAssets();
 
