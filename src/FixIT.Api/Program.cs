@@ -23,6 +23,17 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+// API svarar bara om systemet skickar rätt nyckel
+app.Use(async (context, next) =>
+{
+    var key = context.Request.Headers["X-Api-Key"].ToString();
+    if (key != builder.Configuration["ApiKey"])
+    {
+        context.Response.StatusCode = 401;
+        return;
+    }
+    await next();
+});
 
 app.MapControllers();
 
