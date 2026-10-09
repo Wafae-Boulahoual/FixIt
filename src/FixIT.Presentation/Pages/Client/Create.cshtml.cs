@@ -17,22 +17,26 @@ namespace FixIT.Presentation.Pages.Client
         [BindProperty]
         public CreateServiceRequestDto Dto { get; set; } = new ();
         public string? ErrorMessage { get; set; }
+        public string? SuccessMessage { get; set; }
         public void OnGet()
         {
         }
+      
         public async Task<IActionResult> OnPostAsync()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); //hämtar inloggad användarens Id
             var client = _httpClientFactory.CreateClient("FixITApi");
             var response = await client.PostAsJsonAsync("api/servicerequests?clientId=" + userId, Dto);
-            if(response.IsSuccessStatusCode)
+
+            if (response.IsSuccessStatusCode)
             {
-                return RedirectToPage("/Index");
+                SuccessMessage = "Felanmälan skapades.";
+                ModelState.Clear();
+                Dto = new();
+                return Page();
             }
-            else
-            {
-                ErrorMessage = await response.Content.ReadAsStringAsync();
-            }
+
+            ErrorMessage = await response.Content.ReadAsStringAsync();
             return Page();
         }
     }

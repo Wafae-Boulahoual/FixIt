@@ -3,6 +3,11 @@
 
 <h2>Skapa en ny felanmälan</h2>
 
+@if (Model.SuccessMessage != null)
+{
+    <div class="alert alert-success">@Model.SuccessMessage</div>
+}
+
 @if(Model.ErrorMessage != null)
 {
     <div class = "alert alert-danger"> @Model.ErrorMessage
