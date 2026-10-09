@@ -36,7 +36,8 @@ using (var scope = app.Services.CreateScope())
             Name = "Admin",
             EmailConfirmed = true
         };
-        var result = await userManager.CreateAsync(admin, "Admin111!");
+        var adminPassword = app.Configuration["AdminPassword"]; //hämtas från user secrets
+        var result = await userManager.CreateAsync(admin, adminPassword);
         if (result.Succeeded)
             await userManager.AddToRoleAsync(admin, "Admin");
     }
