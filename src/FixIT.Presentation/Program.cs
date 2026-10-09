@@ -11,8 +11,11 @@ builder.Services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireCo
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<FixITDbContext>();
 builder.Services.AddRazorPages();
-
-builder.Services.AddHttpClient("FixITApi", c => c.BaseAddress = new Uri("https://localhost:7113/"));
+builder.Services.AddHttpClient("FixITApi", c =>
+{
+    c.BaseAddress = new Uri("https://localhost:7113/");
+    c.DefaultRequestHeaders.Add("X-Api-Key", builder.Configuration["ApiKey"]); // skickar nyckeln med varje anrop
+});
 
 var app = builder.Build();
 using (var scope = app.Services.CreateScope())

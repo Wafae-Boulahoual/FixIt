@@ -1,0 +1,13 @@
+﻿@page
+@model FixIT.Presentation.Pages.ProfileModel
+@{
+    ViewData["Title"] = "Min profil";
+}
+
+<h2>Min profil</h2>
+
+<p><strong>Namn:</strong> @Model.Name</p>
+<p><strong>E-post:</strong> @Model.Email</p>
+<p><strong>Telefon:</strong> @Model.PhoneNumber</p>
+
+<a class="btn btn-primary" asp-area="Identity" asp-page="/Account/Manage/Index">Ändra profil</a>
