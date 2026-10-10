@@ -10,14 +10,16 @@ namespace FixIT.Presentation.Pages.Admin
     public class UsersInfoModel : PageModel
     {
         private readonly UserManager<AppUser> _userManager;
+        private readonly IHttpClientFactory _httpClientFactory;
 
-        public UsersInfoModel(UserManager<AppUser> userManager)
+        public UsersInfoModel(UserManager<AppUser> userManager, IHttpClientFactory httpClientFactory)
         {
             _userManager = userManager;
+            _httpClientFactory = httpClientFactory;
         }
 
-        public List<AppUser> Customers { get; set; } = new();   
-        public List<AppUser> Technicians { get; set; } = new(); 
+        public List<AppUser> Customers { get; set; } = new();
+        public List<AppUser> Technicians { get; set; } = new();
 
         [TempData]
         public string? SuccessMessage { get; set; }
@@ -36,35 +38,25 @@ namespace FixIT.Presentation.Pages.Admin
         // körs när admin har bekräftat i dialogen att kontot ska tas bort
         public async Task<IActionResult> OnPostDeleteAsync(string id)
         {
-            var user = await _userManager.FindByIdAsync(id);
-            if (user is null)
+            var client = _httpClientFactory.CreateClient("FixITApi");
+            var currentAdminId = _userManager.GetUserId(User) ?? "";
+            try
             {
-                ErrorMessage = "Kontot finns inte.";
-                return RedirectToPage(); // skickar tillbaka till samma sida
+                var response = await client.DeleteAsync(
+                    "api/users/" + Uri.EscapeDataString(id) + "?currentAdminId=" + Uri.EscapeDataString(currentAdminId));
+                if (response.IsSuccessStatusCode)
+                {
+                    SuccessMessage = "Kontot har tagits bort.";
+                }
+                else
+                {
+                    var message = await response.Content.ReadAsStringAsync(); // felmeddelandet kommer från API:t
+                    ErrorMessage = string.IsNullOrWhiteSpace(message) ? "Kunde inte ta bort kontot." : message;
+                }
             }
-
-            if (user.Id == _userManager.GetUserId(User))
+            catch (HttpRequestException)
             {
-                ErrorMessage = "Du kan inte ta bort ditt eget konto.";
-                return RedirectToPage();
-            }
-
-            var isCustomer = await _userManager.IsInRoleAsync(user, "Kund");
-            var isTechnician = await _userManager.IsInRoleAsync(user, "Tekniker");
-            if (!isCustomer && !isTechnician)
-            {
-                ErrorMessage = "Bara kunder och tekniker kan tas bort här.";
-                return RedirectToPage(); 
-            }
-
-            var result = await _userManager.DeleteAsync(user);
-            if (result.Succeeded)
-            {
-                SuccessMessage = $"Kontot '{user.Name ?? user.Email}' har tagits bort.";
-            }
-            else
-            {
-                ErrorMessage = "Kunde inte ta bort kontot.";
+                ErrorMessage = "Kunde inte nå servern. Kontrollera att API:t körs.";
             }
             return RedirectToPage();
         }
