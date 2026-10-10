@@ -71,6 +71,8 @@ namespace FixIT.Api.Controllers
             }
 
         }
+
+
         [HttpPut("{id}/complete")] //update
         public async Task<IActionResult> CompleteRequest(int id, [FromQuery] string technicianId)
         {

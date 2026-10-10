@@ -16,8 +16,8 @@ namespace FixIT.Presentation.Pages.Admin
             _userManager = userManager;
         }
 
-        public List<AppUser> Customers { get; set; } = new();   
-        public List<AppUser> Technicians { get; set; } = new(); 
+        public List<AppUser> Customers { get; set; } = new();
+        public List<AppUser> Technicians { get; set; } = new();
 
         [TempData]
         public string? SuccessMessage { get; set; }
@@ -54,7 +54,7 @@ namespace FixIT.Presentation.Pages.Admin
             if (!isCustomer && !isTechnician)
             {
                 ErrorMessage = "Bara kunder och tekniker kan tas bort här.";
-                return RedirectToPage(); 
+                return RedirectToPage();
             }
 
             var result = await _userManager.DeleteAsync(user);
