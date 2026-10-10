@@ -18,7 +18,7 @@ namespace FixIT.Tests.Tests.Api
             // UserManager kräver 9 parametrar, men vi mockar bara store
             var store = new Mock<IUserStore<AppUser>>();
             _mockUserManager = new Mock<UserManager<AppUser>>(
-                store.Object, null!, null!, null!, null!, null!, null!, null!, null!);
+                store.Object, null!, null!, null!, null!, null!, null!, null!, null!); 
 
             _sut = new UsersController(_mockUserManager.Object);
         }
