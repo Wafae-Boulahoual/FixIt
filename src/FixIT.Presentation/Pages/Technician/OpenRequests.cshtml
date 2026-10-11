@@ -39,7 +39,7 @@ else
                         <td>@request.Adress</td>
                         <td><span class="badge bg-primary">Öppen</span></td>
                         <td>@request.CreatedAt.ToLocalTime().ToString("yyyy-MM-dd HH:mm")</td>
-                        <td><a class="btn btn-secondary btn-sm" asp-page="/Technician/Details" asp-route-id="@request.Id">Visa</a>
+                        <td><a class="btn btn-secondary btn-sm" asp-page="/Details" asp-route-id="@request.Id">Visa</a>
                         <form method="post" asp-page-handler="Claim" asp-route-id="@request.Id" class="d-inline">                                
                             <button type="submit" class="btn btn-primary btn-sm">Ta ärende</button>
                             </form>

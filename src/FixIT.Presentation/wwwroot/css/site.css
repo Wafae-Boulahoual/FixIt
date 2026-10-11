@@ -30,7 +30,13 @@ body {
   text-align: start;
 }
 
-
+/* Admin Tabell*/
+.table-maxwidth td {
+    max-width: 220px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
 
 /* ===== Startsidan (Index) ===== */
 .hero {

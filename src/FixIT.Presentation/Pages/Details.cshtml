@@ -1,6 +1,6 @@
 ﻿@page
 @using FixIT.Domain.Models
-@model FixIT.Presentation.Pages.Client.DetailsModel
+@model FixIT.Presentation.Pages.DetailsModel
 @{
     ViewData["Title"] = "Ärendedetaljer";
 }
@@ -10,7 +10,7 @@
 <p><strong>Titel:</strong> @Model.ServiceRequest.Title</p>
 <p><strong>Beskrivning:</strong> @Model.ServiceRequest.Description</p>
 <p><strong>Adress:</strong> @Model.ServiceRequest.Adress</p>
-<p><strong>Skapad:</strong> @Model.ServiceRequest.CreatedAt.ToString("yyyy-MM-dd")</p>
+<p><strong>Skapad:</strong> @Model.ServiceRequest.CreatedAt.ToLocalTime().ToString("yyyy-MM-dd HH:mm")</p>
 
 <p>
     <strong>Status:</strong>
@@ -30,4 +30,4 @@
 
 <p><strong>Tekniker:</strong> @(string.IsNullOrEmpty(Model.ServiceRequest.TechnichianId) ? "Ej tilldelad" : "Tilldelad")</p>
 
-<a class="btn btn-secondary" asp-page="/Client/MyRequests">Tillbaka</a>
+<a class="btn btn-secondary" asp-page="@Model.BackPage">Tillbaka</a>

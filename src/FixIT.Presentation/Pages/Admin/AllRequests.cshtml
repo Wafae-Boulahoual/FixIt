@@ -27,7 +27,7 @@ else if (!Model.Requests.Any())
 else
 {
     <div class="table-responsive">
-        <table class="table table-striped align-middle">
+        <table class="table table-striped align-middle table-maxwidth">
             <thead>
                 <tr>
                     <th>Id</th>
@@ -60,19 +60,16 @@ else
 
                     <tr>
                         <td>@r.Id</td>
-                        <td>@r.Title</td>
-                        <td>@r.Description</td>
-                        <td>@r.Adress</td>
+                        <td title="@r.Title">@r.Title</td>
+                        <td title="@r.Description">@r.Description</td>
+                        <td title="@r.Adress">@r.Adress</td>
                         <td><span class="badge @statusClass">@statusText</span></td>
                         <td>@r.CreatedAt.ToLocalTime().ToString("yyyy-MM-dd HH:mm")</td>
                         <td>@clientName</td>
                         <td>@technicianName</td>
                         <td>
-                            <button type="button" class="btn btn-sm btn-outline-danger"
-                                    data-bs-toggle="modal" data-bs-target="#deleteModal"
-                                    data-request-id="@r.Id" data-request-title="@r.Title">
-                                Ta bort
-                            </button>
+                            <a class="btn btn-secondary btn-sm" asp-page="/Details" asp-route-id="@r.Id">Visa</a>
+                            <button type="button" class="btn btn-sm btn-outline-danger" ...>Ta bort</button>
                         </td>
                     </tr>
                 }
