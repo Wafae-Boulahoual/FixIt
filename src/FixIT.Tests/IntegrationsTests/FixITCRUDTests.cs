@@ -35,12 +35,12 @@ namespace FixIT.Tests.IntegrationsTests
         public async Task CanCreateServiceRequest()
         {
             // Arrange
-            var newRequest = new CreateServiceRequestDto
-            {
-                Title = "Läckande tak",
-                Description = "Vatten droppar från taket.",
-                Adress = "Storgatan 1"
-            };
+           var newRequest = new CreateServiceRequestDto
+           {
+               Title = "Läckande tak",
+               Description = "Vatten droppar från taket.",
+               Adress = "Storgatan 1"
+           };
 
             // Act
             var response = await _client.PostAsJsonAsync("api/servicerequests?clientId=kund-1", newRequest);
