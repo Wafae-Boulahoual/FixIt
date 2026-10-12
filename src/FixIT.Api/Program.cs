@@ -1,4 +1,7 @@
 using FixIT.Application.Interfaces;
+using FixIT.Domain.Models;
+using FixIT.Infrastracture.Data;
+using Microsoft.AspNetCore.Identity;
 using FixIT.Application.Services;
 using FixIT.Infrastracture;
 
@@ -7,6 +10,11 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddScoped<IServiceRequestService, ServiceRequestService>();
+
+// UserManager behövs för att kunna ta bort användare via API:t
+builder.Services.AddIdentityCore<AppUser>()
+    .AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<FixITDbContext>();
 
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
