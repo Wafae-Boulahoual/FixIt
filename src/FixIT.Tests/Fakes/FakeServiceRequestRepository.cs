@@ -30,12 +30,6 @@ namespace FixIT.Tests.Fakes
         {
             return Task.FromResult(Saved.FirstOrDefault(r => r.Id == id));
         }
-
-        public Task<List<ServiceRequests>> GetByStatusAsync(RequestStatus status)
-        {
-            return Task.FromResult(Saved.Where(r => r.Status == status).ToList());
-        }
-
         public Task UpdateAsync(ServiceRequests request)
         {
             return Task.CompletedTask;
