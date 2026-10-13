@@ -1,0 +1,41 @@
+name: Coverage
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+jobs:
+  coverage:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Pull all code
+        uses: actions/checkout@v7
+
+      - name: install .Net10
+        uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: restore
+        run: dotnet restore
+
+      - name: Test with coverage
+        run: dotnet test --configuration Release --collect:"XPlat Code Coverage" --results-directory ./coverage
+
+      - name: Install ReportGenerator
+        run: dotnet tool install --global dotnet-reportgenerator-globaltool
+
+      - name: Create coverage summary
+        run: reportgenerator -reports:"coverage/**/coverage.cobertura.xml" -targetdir:coverage-report -reporttypes:"MarkdownSummaryGithub;TextSummary"
+
+      - name: Show summary on the workflow page
+        run: cat coverage-report/SummaryGithub.md >> $GITHUB_STEP_SUMMARY
+
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: coverage-report
