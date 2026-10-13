@@ -12,7 +12,7 @@ namespace FixIT.Tests.IntegrationsTests
             _client.DefaultRequestHeaders.Add("X-Api-Key", "test-nyckel"); // samma nyckel som i customwebapplicationfactory
         }
 
-        [Fact] 
+        [Fact]
         public async Task ApiIsHealthy()
         {
             // Arrange
