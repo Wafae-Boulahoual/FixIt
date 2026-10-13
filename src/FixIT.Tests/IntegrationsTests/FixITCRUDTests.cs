@@ -12,11 +12,11 @@ namespace FixIT.Tests.IntegrationsTests
         public FixITCRUDTests(CustomWebApplicationFactory<ServiceRequestsController> factory)
         {
             _client = factory.CreateClient();
-            _client.DefaultRequestHeaders.Add("X-Api-Key", "test-nyckel"); // samma nyckel som i fabriken
+            _client.DefaultRequestHeaders.Add("X-Api-Key", "test-nyckel"); // samma nyckel som i CustomWebApplicationFactory
         }
 
 
-        // Helper -------------
+        // Helper -
         private async Task<ReadServiceRequestDto?> CreateRequestAsync(string title = "Läckande tak", string clientId = "kund-1")
         {
             var dto = new CreateServiceRequestDto
@@ -30,7 +30,7 @@ namespace FixIT.Tests.IntegrationsTests
         }
 
 
-        // Create test -------------
+        // Create test -
         [Fact]
         public async Task CanCreateServiceRequest()
         {
@@ -70,7 +70,7 @@ namespace FixIT.Tests.IntegrationsTests
         }
 
 
-        // Read test --------------
+        // Read test -
         [Fact]
         public async Task CanReadServiceRequest()
         {
@@ -97,7 +97,7 @@ namespace FixIT.Tests.IntegrationsTests
         }
 
 
-        // Update tests -------------
+        // Update tests -
         [Fact]
         public async Task CanUpdateServiceRequest()
         {
@@ -142,7 +142,7 @@ namespace FixIT.Tests.IntegrationsTests
         }
 
 
-        // Delete tests -------------
+        // Delete tests -
         [Fact]
         public async Task CanDeleteServiceRequest()
         {
