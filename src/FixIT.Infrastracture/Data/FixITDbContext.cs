@@ -10,8 +10,9 @@ namespace FixIT.Infrastracture.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            base.OnModelCreating(builder);
+            base.OnModelCreating(builder); //bygger Identity tebeller
 
+            //regler
             builder.Entity<ServiceRequests>(entity =>
             {
                 entity.Property(r => r.Title).IsRequired().HasMaxLength(200);

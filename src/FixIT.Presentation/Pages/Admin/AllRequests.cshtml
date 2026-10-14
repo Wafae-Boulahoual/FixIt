@@ -32,7 +32,6 @@ else
                 <tr>
                     <th>Id</th>
                     <th>Titel</th>
-                    <th>Beskrivning</th>
                     <th>Adress</th>
                     <th>Status</th>
                     <th>Skapad</th>
@@ -61,7 +60,6 @@ else
                     <tr>
                         <td>@r.Id</td>
                         <td title="@r.Title">@r.Title</td>
-                        <td title="@r.Description">@r.Description</td>
                         <td title="@r.Adress">@r.Adress</td>
                         <td><span class="badge @statusClass">@statusText</span></td>
                         <td>@r.CreatedAt.ToLocalTime().ToString("yyyy-MM-dd HH:mm")</td>
