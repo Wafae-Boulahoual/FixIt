@@ -14,17 +14,17 @@
         <form method="post" asp-route-id="@Model.Id">
             <div class="mb-3">
                 <label asp-for="Dto.Title">Titel</label>
-                <input asp-for="Dto.Title" class="form-control" maxlength="50"/>
+                <input asp-for="Dto.Title" class="form-control" maxlength="50" required/>
             </div>
 
             <div class="mb-3">
                 <label asp-for="Dto.Description">Beskrivning</label>
-                <textarea asp-for="Dto.Description" class="form-control" maxlength="2000"></textarea>
+                <textarea asp-for="Dto.Description" class="form-control" maxlength="2000" required></textarea>
             </div>
 
             <div class="mb-3">
                 <label asp-for="Dto.Adress">Adress</label>
-                <input asp-for="Dto.Adress" class="form-control" maxlength="80" />
+                <input asp-for="Dto.Adress" class="form-control" maxlength="80" required />
             </div>
 
             <button type="submit" class="btn btn-primary">Spara</button>
