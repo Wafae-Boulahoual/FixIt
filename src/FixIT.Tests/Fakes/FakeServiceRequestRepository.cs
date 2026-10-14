@@ -1,8 +1,5 @@
 ﻿using FixIT.Domain.Interfaces;
 using FixIT.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace FixIT.Tests.Fakes
 {
