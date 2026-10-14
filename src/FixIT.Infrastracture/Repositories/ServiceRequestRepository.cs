@@ -35,11 +35,6 @@ namespace FixIT.Infrastracture.Repositories
             return await _context.ServiceRequests.FindAsync(id);
         }
 
-        public async Task<List<ServiceRequests>> GetByStatusAsync(RequestStatus status)
-        {
-            return await _context.ServiceRequests.Where(r => r.Status == status).ToListAsync();
-        }
-
         public async Task UpdateAsync(ServiceRequests request)
         {
             _context.ServiceRequests.Update(request);

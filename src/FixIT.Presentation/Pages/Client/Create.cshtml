@@ -1,5 +1,8 @@
 ﻿@page
 @model FixIT.Presentation.Pages.Client.CreateModel
+@{
+    ViewData["Title"] = "Skapa en ny felanmälan";
+}
 
 <h2>Skapa en ny felanmälan</h2>
 
@@ -17,17 +20,17 @@
 <form method="post">
     <div class="mb-3">
         <label asp-for="Dto.Title">Titel</label>
-        <input asp-for="Dto.Title" class="form-control" />    
+        <input asp-for="Dto.Title" class="form-control" maxlength="50" required/>    
     </div>
 
     <div class="mb-3">
         <label asp-for="Dto.Description">Beskrivning</label>
-        <textarea asp-for="Dto.Description" class="form-control"></textarea>
+        <textarea asp-for="Dto.Description" class="form-control" maxlength="2000" required></textarea>
     </div>
     
     <div class="mb-3">
         <label asp-for="Dto.Adress">Adress</label>
-        <input asp-for="Dto.Adress" class="form-control" />
+        <input asp-for="Dto.Adress" class="form-control" maxlength="80" required/>
     </div>
     
     <button type = "submit" class="btn btn-primary">Skapa</button>

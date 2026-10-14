@@ -13,8 +13,8 @@ namespace FixIT.Tests.Tests
         private readonly ServiceRequestService _sut;
         public CreateServiceRequestTests()
         {
-            _fakeRepository = new FakeServiceRequestRepository();
-            _sut = new ServiceRequestService(_fakeRepository);
+            _fakeRepository = new FakeServiceRequestRepository(); //tom fake repo för varje test
+            _sut = new ServiceRequestService(_fakeRepository); // riktiga service med fake repo 
         }
         [Theory]
         [InlineData("")]
