@@ -5,7 +5,7 @@ namespace FixIT.Tests.Fakes
 {
     public class FakeServiceRequestRepository : IServiceRequestRepository
     {
-        public List<ServiceRequests> Saved = new();
+        public List<ServiceRequests> Saved = new(); 
         public Task AddAsync(ServiceRequests request)
         {
             request.Id = Saved.Count + 1;
