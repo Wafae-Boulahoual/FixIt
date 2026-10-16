@@ -3,7 +3,7 @@ using FixIT.Domain.Models;
 
 namespace FixIT.Tests.Fakes
 {
-    public class FakeServiceRequestRepository : IServiceRequestRepository
+    public class FakeServiceRequestRepository : IServiceRequestRepository 
     {
         public List<ServiceRequests> Saved = new(); 
         public Task AddAsync(ServiceRequests request)
@@ -13,6 +13,7 @@ namespace FixIT.Tests.Fakes
             return Task.CompletedTask;
         }
 
+        
         public Task<List<ServiceRequests>> GetAllAsync()
         {
             return Task.FromResult(Saved);
@@ -27,7 +28,7 @@ namespace FixIT.Tests.Fakes
         {
             return Task.FromResult(Saved.FirstOrDefault(r => r.Id == id));
         }
-        public Task UpdateAsync(ServiceRequests request)
+        public Task UpdateAsync(ServiceRequests request) 
         {
             return Task.CompletedTask;
         }
@@ -38,5 +39,4 @@ namespace FixIT.Tests.Fakes
             return Task.CompletedTask;
         }
     }
-
 }

@@ -31,7 +31,7 @@ namespace FixIT.Tests.Tests
 
         // ---------- GetAllAsync ----------
         [Fact]
-        public async Task GetAllAsync_ShouldReturnEmptyList_WhenNoRequestsExist()
+        public async Task GetAllAsync_ShouldReturnEmptyList_WhenNoRequestsExist() 
         {
             //Act
             var result = await _sut.GetAllAsync();
@@ -53,7 +53,7 @@ namespace FixIT.Tests.Tests
 
             // assert
             Assert.Equal(3, result.Count);
-            Assert.Contains(result, r => r.Title == "Läckande tak");
+            Assert.Contains(result, r => r.Title == "Läckande tak"); 
             Assert.Contains(result, r => r.Title == "Trasig dörr");
             Assert.Contains(result, r => r.Title == "Sönderfryst rör");
         }
@@ -85,13 +85,13 @@ namespace FixIT.Tests.Tests
             Assert.Equal("Vatten droppar i sovrummet", result.Description);
             Assert.Equal("Storgatan 5", result.Adress);
             Assert.Equal(RequestStatus.InProgress, result.Status);
-            Assert.Equal(new DateTime(2026, 9, 1, 12, 0, 0, DateTimeKind.Utc), result.CreatedAt);
+            Assert.Equal(new DateTime(2026, 9, 1, 12, 0, 0, DateTimeKind.Utc), result.CreatedAt); 
             Assert.Equal("7", result.ClientId);
             Assert.Equal("3", result.TechnichianId);
         }
          
         [Fact]
-        public async Task GetByIdAsync_ShouldReturnNull_WhenRequestDoesNotExist()
+        public async Task GetByIdAsync_ShouldReturnNull_WhenRequestDoesNotExist() 
         {
             // arrange
             await SeedAsync("Läckande tak");
@@ -102,6 +102,8 @@ namespace FixIT.Tests.Tests
             // assert
             Assert.Null(result);
         }
+
+
         //----------Client history---------------
         [Theory]
         [InlineData("Läckande tak", RequestStatus.open)]
@@ -124,7 +126,7 @@ namespace FixIT.Tests.Tests
             var result = await _sut.GetClientHistoryAsync(clientId);
 
             // assert
-            var request = Assert.Single(result);
+            var request = Assert.Single(result); 
             Assert.Equal(title, request.Title);
             Assert.Equal(status, request.Status);
         }
